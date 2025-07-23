@@ -1,0 +1,80 @@
+---
+title: "Manipulación de secuencias"
+author: "Marcelo Treviño Velazquez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Estas bases contienee **registros** o **entradas**
+
+Se hace uso de la paqueteria **sequinr**
+
+
+```{r}
+
+library(seqinr)
+library(stringr)
+
+list.files(getwd())
+list.files(path = system.file("sequences", package = "seqinr"), pattern = ".fasta")
+
+
+
+```
+```{r}
+library(rentrez)
+
+entrez_dbs()
+```
+```{r}
+(sars <- rentrez::entrez_search(db="pubmed", term = "SARS-COV-2"))
+str(sars)
+```
+```{r}
+sars_2 <- "Severe acute respiratory syndrome coronavirus 2 [Organism]"
+s_s <- entrez_search(db="nuccore", term=sars_2)
+s_s$ids
+
+(s_seqs <- entrez_fetch(db="nuccore", id= s_s$ids, rettype = "fasta"))
+class(s_seqs)
+
+genome_sid <- "NC_045512.2"
+
+sars_genome <- entrez_fetch(db = "nuccore", rettype = "fasta", retmode = "text", id=genome_sid)
+
+length(sars_genome)
+
+nchar(sars_genome)
+
+library(stringr)
+
+(name_fasta <- stringr::str_extract(sars_genome[1],"^>(.*)(?=\n)"))
+
+(genome_lines <- str_split(sars_genome, "\n")[[1]])
+sequence_s <- str_c(genome_lines[-1], collapse = "")
+sequence_s
+
+library(seqinr)
+seqinr::write.fasta(sequences=sequence_s,file.out = "SARS_COV2.fasta", names = name_fasta)
+list.files(getwd())
+
+f_s <- read.fasta("SARS_COV2.fasta")
+seqinr::count(f_s[[1]],1)
+count(f_s[[1]],2)
+count(f_s[[1]],3)
+
+if(!require("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("Biostrings")
+
+library(Biostrings)
+
+covid <- readDNAStringSet("SARS_COV2.fasta")
+print(covid)
+
+```
+

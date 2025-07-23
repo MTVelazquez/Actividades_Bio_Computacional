@@ -1,0 +1,213 @@
+---
+title: "Graficacion de alineamiento"
+author: "Francisco Ricardo Rodriguez Recio"
+date: "2025-04-21"
+output: html_document
+---
+
+
+El siguiente código es una demostración de la evolución molecular de la hemoglobina con una pequeña comparativa
+
+## **El objeto `"phylo"` en R**
+Ahora instalaremos paquetes críticos (ape, phangorn, phytools, geiger entre otros). El paquete principal más importante para las filogenias en R se llama "ape", que significa Análisis de Filogenética y Evolución en R. El paquete lo puedes consultar en: [APE](http://ape-package.ird.fr/)
+
+```{r}
+
+install.packages("remotes")
+install.packages("adegenet")
+
+remotes::install_github("GuangchuangYu/treeio")
+BiocManager::install("ggtree")
+BiocManager::install("DECIPHER")
+BiocManager::install("S4Vectors")
+BiocManager::install("seqmagick")
+BiocManager::install("ggmsa")
+install.packages("ape")
+install.packages("phangorn")
+install.packages("phytools")
+install.packages("geiger")
+install.packages("viridis")
+
+
+# cargar información
+library(ape)
+library(phangorn)
+library(phytools)
+library(geiger)
+library(seqinr)
+library(adegenet)
+library(ggtree)
+library(DECIPHER)
+library(viridis)
+library(ggmsa)
+library(ggplot2)
+library(Biostrings)
+
+```
+
+```{r}
+hemoglobina <- c(humano ="NM_000517.6", chimpance = "NM_001042627.1", caballo = "NM_001085431.1",
+                 topo = "NM_001281855.1",elefante = "NM_001280884.1", anfibio = "NM_001142252.1")
+
+hemoglobina_sequences <- ape::read.GenBank(hemoglobina) #concección a GenBank para obtener secuencias de nt
+
+str(hemoglobina_sequences)
+
+hemoglobina_sequences[1]
+attributes(hemoglobina_sequences) #ver que atributos tiene la lista virus_sequence
+
+names(hemoglobina_sequences) <- names(hemoglobina) #ajustar numero de acceso por nombre común
+attr(hemoglobina_sequences, "names") 
+
+dir.create("hemoglobina_fasta")
+getwd()
+setwd("C:/Users/mtrev/R/Análisis de Biología computacional/hemoglobina_fasta")
+getwd()
+ape::write.dna(hemoglobina_sequences,  file ="hm_seqs.fasta", format = "fasta", append =
+FALSE, nbcol = 6, colsep = " ", colw = 10)
+
+list.files(getwd())
+```
+
+
+5. Cargamos la secuencias:
+```{r}
+
+hm_seq_not_align <- Biostrings::readDNAStringSet("hemoglobina_fasta/hm_seqs.fasta", format = "fasta")
+hm_seq_not_align
+```
+
+# Genómica Comparativa
+
+Se define como genómica comparativa al **estudio de la relación entre la estructura y la función del genoma** en diferentes especies. Esto nos ayuda a comprender de forma detallada la relación de las especies a un nivel genético.
+
+
+_La comparación de secuencias es una de las actividades fundamentales en el análisis de datos biológicos._
+
+Al comparar secuencias genómicas, podemos describir a un nivel molecular las diferencias o similitudes que existen entre las especies. Adicionalmente, nos permiten observar los cambios evolutivos que ocurrieron entre las especies ya sea para crear especes nuevas o únicas o para determinar los genes que se conservaron.
+
+Hay que recordar que el tamaño del genoma no se correlaciona con el estado evolutivo, ni el número de genes es proporcional a este.
+
+
+Estas comparativas se pueden realizar en el ADN, ARN, proteínas y regiones reguladoras para inferir cómo ha actuado la selección natural _(evolución)_ sobre estos elementos a través del tiempo, estas selecciones las podemos englobar en los siguientes rublos:
+
+1 . **Todos aquellos elementos genéticos responsables de las similitudes deberán conservarse en el tiempo (selección estabilizadora).**
+
+2.  **Todos los elementos responsables de las diferencias entre especies deberán ser divergentes (selección positiva).** 
+
+3.  **Todos los ementos que no sean importantes para el éxito evolutivo del organismo no estarán conservados (selección neutral). **
+
+
+6. Alineamiento de las secuencias:
+Un alineamiento múltiple de secuencias es un alineamiento de más de dos secuencias. Estas secuencias, como en el caso de los alieamientos por parejas pueden ser ADN, ARN o proteína.
+Las aplicaciones más habituales de los alineamientos múltiples son:
+* la reconstrucción filogenética,
+* el análisis estructural de proteínas,
+* la búsqueda de dominios conservados y
+* la búsqueda de regiones conservadas en promotores.
+En todos los casos los algoritmos de alineamiento múltiple asumen que las secuencias que estamos alineando descienden de un antepasado común y lo que intentamos hacer es alinear las posiciones homólogas.
+
+
+
+
+
+# Alineamiento de secuencias
+
+```{r}
+#Orienta las secuencias de nucleótidos (misma dirección y complementariedad con referencia.
+
+hm_seq_not_align <- DECIPHER::OrientNucleotides(hm_seq_not_align)
+
+#Alinea la secuencia de nucleotidos del archivo
+hm_seq_align <- DECIPHER:: AlignSeqs(hm_seq_not_align)
+
+#Los alineamiento con DECIPHER toman como referencia la primer secuencia que este en el archivo FASTA y sobre esta realizan el alineamiento total.
+
+```
+
+
+# Visualización y almacenamiento del alineamiento 
+```{r}
+DECIPHER::BrowseSeqs(hm_seq_align, highlight=1) #resaltar primer secuencia
+Biostrings::writeXStringSet(hm_seq_align, file="hm_seq_align.fasta")
+```
+
+# Visualización del alineamiento en R 
+
+
+```{r}
+#herramienta ggmsa de exploración de alineamientos multiples de DNA, proteinas y RNA
+ggmsa(hm_seq_not_align, 420, 480, color = "Chemistry_NT", seq_name = TRUE)
+#ggmsa(alineamiento, inicio, fin, color)
+```
+
+
+
+
+
+## PROXIMA SESIÓN 
+
+#arboles filogeneticos 
+
+La distancia filogenética mide el grado de separación entre dos organismos o sus genomas a escala evolutiva, la podemos expresar como el número de cambios de secuencia acumulados, el número de años o el número de generaciones. Las distancias suelen representarse en árboles filogenéticos.
+
+Cuanto más distante sea el parentesco entre dos organismos, menor será la similitud de secuencias o las características genómicas compartidas que se detecten entre ellos. Por lo tanto, solo se puede obtener información general sobre las clases de genes compartidos mediante comparaciones genómicas a distancias filogenéticas muy largas (por ejemplo, más de mil millones de años desde su separación). A distancias tan grandes, el orden de los genes y las firmas de las secuencias que regulan su transcripción rara vez se conservan.
+
+
+
+# Matrices de distancia 
+```{r}
+#cargar archivo
+hm_aligned <- seqinr::read.alignment("hm_seq_align.fasta", format = "fasta")
+
+#matriz de distancias para representar las distancias entre las bases
+matriz_distancia <- seqinr::dist.alignment(hm_aligned, matrix = "similarity")
+```
+
+# Visualización de la matriz de distancia: donde sombras más oscuras de gris significan una mayor distancia
+```{r}
+temp <- as.data.frame(as.matrix(matriz_distancia))
+table.paint(temp, cleg=0, clabel.row=.5, clabel.col=.5) + scale_color_viridis()
+```
+# Crear un árbol que muestre la evolución molecular de la hemoglobina con el paquete ape:
+```{r}
+hm_tree <- ape::nj(matriz_distancia) #empleamos un árbol de neighbor-joining
+class(hm_tree) 
+hm_tree <- ape::ladderize(hm_tree)
+```
+
+# Crear un gráfico que muestre el árbol y la evolución de las secuencias
+```{r}
+plot(hm_tree, cex = 0.6)
+title("Molecular evolution of mammalian hemoglobin")
+
+```
+
+# Gráfico con ggtree que es parte de ggplot:
+
+
+```{r}
+str(hm_tree)
+ggtree(hm_tree)
+#explorar opciones
+#para agregar labels o tipslab agregar + geom_tiplab()
+ggtree(hm_tree ) + geom_tiplab()
+
+```
+
+# Combina el árbol filogenético con el alineamiento de las secuencias:
+```{r}
+#ggtree esta diseñado para la visualización y anotación de árboles filogenéticos y otras estructuras similares a árboles con sus datos de anotación.
+plot_hm <- ggtree(hm_tree ) + geom_tiplab() #agregar etiqueta de punta a un arbol
+
+data = ggmsa::tidy_msa(hm_seq_not_align, 420, 480) #Seleccion de zona de interes
+plot_hm + geom_facet(geom = geom_msa, data = data,  panel = 'msa', color = "Chemistry_NT") +
+    xlim_tree(1) #establecer límites del eje x especialmente para el panel de árbol
+
+
+```
+
+
+
+
+

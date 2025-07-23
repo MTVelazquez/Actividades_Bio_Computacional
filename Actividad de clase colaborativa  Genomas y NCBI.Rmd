@@ -1,0 +1,113 @@
+---
+title: "Actividad de clase colaborativa | Genomas y NCBI"
+author: "Marcelo Treviño Velazquez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Punto 1
+adn_replicado <- "ATGCTTGACGCTCAAACCATCGCTACAGTAAAAGCCACCATCCCTTTACTGGTGGAAACGGGGCCAAAGTTAACCGCCCATTTCTACGACCGTATGTTTACTCATAACCCAGAACTCAAAGAAATTTTTAACATGAGTAACCAGCGTAATGGCGATCAACGTGAAGCCCTGTTTAACGCTATTGCCGCCTACGCCAGTAATATTGAAAACCTGCCTGCGCTGCTGCCAGCGGTAGAAAAAATCGCGCAGAAGCACACCAGCTTCCAGATCAAACCGGAACAGTACAACATCGTCGGTGAACACCTGTTGGCAACGCTGGACGAAATGTTCAGCCCGGGGCAGGAAGTGCTGGACGCGTGGGGTAAAGCCTATGGTGTACTGGCTAATGTATTTATCAATCGCGAGGCGGAAATCTATAACGAAAACGCCAGCAAAGCCGGTGGTTGGGAAGGTACTCGCGATTTCCGCATTGTGGCTAAAACACCGCGCAGCGCGCTTATCACCAGCTTCGAACTGGAGCCGGTCGACGGTGGCGCAGTGGCAGAATACCGTCCGGGGCAATATCTCGGCGTCTGGCTGAAGCCGGAAGGTTTCCCACATCAGGAAATTCGTCAGTACTCTTTGACTCGCAAACCGGATGGCAAAGGCTATCGTATTGCGGTGAAACGCGAAGAGGGTGGGCAGGTATCCAACTGGTTGCACAATCACGCCAATGTTGGCGATGTCGTGAAACTGGTCGCTCCGGCAGGTGATTTCTTTATGGCTGTCGCAGATGACACACCAGTGACGTTAATCTCTGCCGGTGTTGGTCAAACGCCAATGCTGGCAATGCTCGACACGCTGGCAAAAGCAGGCCACACAGCACAAGTGAACTGGTTCCATGCGGCAGAAAATGGCGATGTTCACGCCTTTGCCGATGAAGTTAAGGAACTGGGGCAGTCACTGCCGCGCTTTACCGCGCACACCTGGTATCGTCAGCCGAGCGAAGCCGATCGCGCTAAAGGTCAGTTTGATAGCGAAGGTCTGATGGATTTGAGCAAACTGGAAGGTGCGTTCAGCGATCCGACAATGCAGTTCTATCTCTGCGGCCCGGTTGGCTTCATGCAGTTTACCGCGAAACAGTTAGTGGATCTGGGCGTGAAGCAGGAAAACATTCATTACGAATGCTTTGGCCCGCATAAGGTGCTGTAA"
+
+
+```
+
+```{r}
+# Punto 2
+Secuenciatamano <- function(seq){
+  nchar(seq)
+}
+cat("\n")
+cat("Tamaño total de secuencia de DNA: \n")
+Secuenciatamano(adn_replicado)
+
+```
+
+```{r}
+# Punto 3
+porcientoBase <- function(seq){
+  total <- nchar(seq)
+  bases <- c("A","T","C","G")
+  freqs <- sapply(bases,function(b) sum(strsplit(seq, "")[[1]]==b))
+  
+  porcentaje <- freqs/total*100
+  return(porcentaje)
+}
+cat("\n")
+cat("Porcentaje de cada base en la secuencia de DNA: \n")
+porcientoBase(adn_replicado)
+
+```
+
+```{r}
+# Punto 4 - Traducción con impresión del codón de paro al final
+
+# Transcripción (aseguramos que arn_transcrito esté definido)
+transcribir_adn <- function(adn_replicado) {
+  gsub("T", "U", adn_replicado)
+}
+arn_transcrito <- transcribir_adn(adn_replicado)
+
+# Traducción
+traducirProteina <- function(seq) {
+  codon_tabla <- list(
+    UUU="Phe", UUC="Phe", UUA="Leu", UUG="Leu", CUU="Leu", CUC="Leu", CUA="Leu", CUG="Leu",
+    AUU="Ile", AUC="Ile", AUA="Ile", AUG="Met", GUU="Val", GUC="Val", GUA="Val", GUG="Val",
+    UCU="Ser", UCC="Ser", UCA="Ser", UCG="Ser", CCU="Pro", CCC="Pro", CCA="Pro", CCG="Pro",
+    ACU="Thr", ACC="Thr", ACA="Thr", ACG="Thr", GCU="Ala", GCC="Ala", GCA="Ala", GCG="Ala",
+    UAU="Tyr", UAC="Tyr", UAA="Stop", UAG="Stop", CAU="His", CAC="His", CAA="Gln", CAG="Gln",
+    AAU="Asn", AAC="Asn", AAA="Lys", AAG="Lys", GAU="Asp", GAC="Asp", GAA="Glu", GAG="Glu",
+    UGU="Cys", UGC="Cys", UGA="Stop", UGG="Trp", CGU="Arg", CGC="Arg", CGA="Arg", CGG="Arg",
+    AGU="Ser", AGC="Ser", AGA="Arg", AGG="Arg", GGU="Gly", GGC="Gly", GGA="Gly", GGG="Gly"
+  )
+  
+  # Buscar el primer AUG en marco válido
+  for (i in seq(1, nchar(seq)-2, by = 3)) {
+    codon <- substr(seq, i, i+2)
+    if (codon == "AUG") {
+      start_index <- i
+      break
+    }
+  }
+  
+  if (!exists("start_index")) {
+    return("No se encontró codón de inicio (AUG) en marco válido")
+  }
+  
+  codones <- substring(seq, seq(start_index, nchar(seq)-2, 3), seq(start_index+2, nchar(seq), 3))
+  
+  aa <- c()
+  codon_paro <- NA
+  for (c in codones) {
+    if (c %in% names(codon_tabla)) {
+      aa_cod <- codon_tabla[[c]]
+      if (aa_cod == "Stop") {
+        codon_paro <- c
+        break
+      }
+      aa <- c(aa, aa_cod)
+    }
+  }
+  
+  cat("Secuencia de aminoácidos:\n")
+  cat(paste(aa, collapse = "-"), "\n")
+  
+  if (!is.na(codon_paro)) {
+    cat("Codón de paro encontrado al final: ", codon_paro, "\n")
+  } else {
+    cat("No se encontró codón de paro en el marco de lectura.\n")
+  }
+}
+
+# Ejecutar traducción
+traducirProteina(arn_transcrito)
+
+```
+
+
+
+

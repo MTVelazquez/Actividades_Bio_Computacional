@@ -1,0 +1,147 @@
+---
+title: "ActividadEnClase_1_ABC_A01286389"
+author: "Marcelo Treviño Velazquez"
+date: "2025-03-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1. Crear un vector x con los datos 10, 11, 13, −1, 6,3
+
+```{r}
+# ---- Creación de vector llamado x ----
+x = c(10, 11, 13, -1, 6, 3)
+```
+
+
+# 2. Calcula estadísticas simples de x. Calcular la media, la desviación estándar y la varianza. Crear
+un objeto (vector) con el nombre est.x en el que guardar los 3 estadísticos.
+
+```{r}
+# ---- media de x ----
+medX <-  mean(x)
+
+# ---- desviación estándar de x ----
+desvestX <- sd(x)
+
+# ---- varianza de x ----
+varianzX <- var(x)
+
+est.x = c(medX, desvestX, varianzX)
+cat(est.x)
+
+```
+
+
+# 3. Escribe un programa R para crear una secuencia de números del 20 al 50 y encuentre la media
+de los números del 20 al 60 y la suma de los números del 51 al 91. Tip: utiliza las funciones de R.
+```{r}
+# ---- Creación de el vector del 1 al 100 ----
+VEC <- c(1:100)
+
+# ---- Secuencia de números del 20 al 50 ----
+Sec_20_al_50 <- VEC[20:50]
+
+cat("La secuencia de números del 20 al 50:",Sec_20_al_50,"\n")
+
+# ---- media de los números del 20 al 60 ----
+media_20_al_60 <- mean(VEC[20:60])
+
+cat("La media de los números del 20 al 60 es",media_20_al_60,"\n")
+
+# ---- Suma de los números del 51 al 91 ----
+suma_51_al_91 <- sum(VEC[51:91])
+
+cat("La suma de los números del 51 al 91 es",suma_51_al_91,"\n")
+
+
+```
+
+
+#4
+```{r}
+
+# Usando sample para generar 10 números aleatorios entre -100 y 50
+vector_aleatorio <- sample(-100:50, 10, replace = TRUE)
+print(vector_aleatorio)
+
+```
+
+
+#5
+
+```{r}
+# Crear un vector para almacenar los números de Fibonacci
+fb <- numeric(10)
+fb[1] <- fb[2] <- 1
+
+# Usar un bucle for para calcular el resto de los números de Fibonacci
+for (i in 3:10) {
+  fb[i] <- fb[i - 1] + fb[i - 2]
+}
+print(fb)
+
+
+
+```
+
+#6
+
+```{r}
+# Definir los dos vectores
+vector1 <- c(10, 20, 30, 4, 50, -60)
+vector2 <- c(10, 20, 30, 4, 50, -60)
+
+# Encontrar el valor máximo y mínimo para el primer vector
+max_val1 <- max(vector1)
+min_val1 <- min(vector1)
+
+# Encontrar el valor máximo y mínimo para el segundo vector
+max_val2 <- max(vector2)
+min_val2 <- min(vector2)
+
+# Mostrar los resultados
+print("Para el primer vector:")
+print(paste("Máximo:", max_val1))
+print(paste("Mínimo:", min_val1))
+
+print("Para el segundo vector:")
+print(paste("Máximo:", max_val2))
+print(paste("Mínimo:", min_val2))
+
+```
+
+# 7. Función para multiplicar dos vectores
+
+```{r}
+multiplica <- function(a, b) {
+  return(a * b)
+}
+print(multiplica(c(10, 20), c(3, 4)))  # Resultado: 30 80
+```
+
+
+
+# 8. Función para contar un valor específico
+
+```{r}
+cuenta <- function(v, valor) {
+  return(sum(v == valor))
+}
+print(cuenta(c(10, 20, 10, 7, 24, 7, 5), 7))  # Resultado: 2
+```
+
+
+
+# 9. Función para extraer cada enésimo elemento de un vector
+```{r}
+enesimo <- function(v, n) {
+  return(v[seq(1, length(v), by = n)])
+}
+v <- 1:100
+print(enesimo(v, 5))  # Resultado: 1 6 11 16 ...
+```
+

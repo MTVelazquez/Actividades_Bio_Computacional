@@ -1,0 +1,460 @@
+---
+title: "Actividad colaborativa en clase | Genomas y NCBI"
+subtitle: "Instituto Tecnológico y de Estudios Superiores de Monterrey - Campus Monterrey"
+author: "Marcelo Treviño Velazquez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Cargando las librerias necesarias para todo el proyecto
+
+library(rentrez)
+library(Biostrings)
+library(seqinr)
+library(ggplot2)
+library(stringr)
+```
+
+
+# PARTE 1. Contesten y justifiquen las siguientes preguntas:
+
+## a) En un organismo con un genoma de ADN doble hélice, si G=C y A=T, entonces, ¿G+C = A+T? ¿Por qué? 
+
+Encontramos que no necesariamente tiene que suceder esto, ya que esto solo sería cierto en el caso de que en ADN hay igual número de pares G-C que de pares A-T lo cual no es muy probable en algunos casos, por lo que en mayoría de bases de ADN esto no cumpliría, ya que los organismos pueden tener diferentes proporciones de los mismos pares.
+
+## b) Si un organismo tiene 38% de A, ¿cuál es el porcentaje de G?
+
+G seria el 12% ya que A es igual al 38% significa que correlativamente T tiene que tener el mismo porcentaje que seria otro 38% 
+
+38 + 38 = 76 
+lo que significa que el 24 restante se divide en 2 en G-C que corresponde a 12 para cada uno.
+
+## c) ¿Cuáles son las consecuencias de un alto contenido de GC?
+
+Un alto contenido de G-C implicaría que el ADN tenga una mayor estabilidad térmica porque crea más enlaces triples, lo cual indicaría que se requeriría más una mayor temperatura  para estas regiones.
+
+## d) ¿A qué se refiere el superenrollamiento del ADN?
+
+Tiene 2 posibles consecuencias, ocurre cuando está tuerce sobre sí misma. Esta puede ser positiva si se aprieta más (sobregiro) y negativa si se relaja (subgiro).
+
+## e) ¿Cómo se desnaturaliza el ADN? Es decir, ¿qué métodos se usan para separar las hebras?
+
+El ADN se desnaturaliza al romper los enlaces de hidrógeno entre las hebras. Esto puede lograrse mediante:
+
+- Calor (alta temperatura), que separa las hebras dependiendo del contenido GC.
+
+- Cambios extremos de pH (muy ácido o muy básico), que afectan los enlaces.
+
+- Agentes químicos desnaturalizantes como la urea o formamida.
+
+## f) ¿Qué es la Tm del ADN de doble cadena? 
+
+Temperatura de fusión es la temperatura a la cual el 50% (por decir un ejemplo ya que puede existir una variación de porcentajes) de una molécula de ADN de doble cadena se ha separado en cadenas simples. Es un indicador de la estabilidad térmica de la doble hélice de ADN desnaturalizan los G-C depende de la cantidad de los mismos que aumenta los enlaces triples que puede derivar en que tanta temperatura necesita para desnaturalizar el mismo.
+
+## g) ¿Por qué es importante saber la Tm de un segmento de ADN de doble cadena?
+
+Conocer la Tm es importante porque:
+- Ayuda a diseñar experimentos de reacción en cadena de la polimerasa, especialmente para elegir la temperatura de alineamiento adecuada.
+- Permite evaluar de manera mas correcta con la estabilidad de la unión entre cadenas complementarias.
+- Es útil en estudios de hibridación de ácidos nucleicos, como mas microarreglos o sondas.
+- Indica qué tanta resistencia es el ADN ante cambios de temperatura, lo cual es clave en biología molecular y genética.
+- Indica la cantidad de G-C en una cadena de doble hélice en un ADN para comprender patrones 
+
+## h) ¿Qué factores afectan la Tm?
+
+La Tm puede aumentar o disminuir según varios factores:
+
+1. Contenido de GC: Al tener mas bases G≡C tienen al menos tres enlaces de hidrógeno, lo que las hace mucho más estables que las A=T (dos enlaces). Más GC = mayor Tm.
+
+2. Longitud de la cadena: más larga = mayor Tm, en general.
+
+3. Concentración iónica: mayor cantidad concentración de iones como Na⁺ estabiliza la doble hélice, tiene una relación aumenta la Tm.
+
+4. pH del medio: cambios extremos de pH pueden desestabilizar los enlaces de hidrógeno, tiene una relación con disminuir la Tm.
+
+5. Presencia de agentes desnaturalizantes: como la urea o el formamida → bajan la Tm.
+
+## i) Ejercicio: Observa la siguiente secuencia y encuentra la secuencia complementaria, la reversa y la reversa complementaria:
+
+Secuencia original:
+5’-ATGCTTGACGCTCAAACCATCGC-3’
+
+- Complementaria (en dirección 3' → 5'):
+  3’-TACGAACTGCGAGTTTGGTAGCG-5’
+
+
+- Reversa (sólo invertir el orden, sin cambiar bases):
+  3’-CGCTACCAAACTCGCAGTTCGTA-5’
+
+
+- Reversa complementaria (invertida y complementada):
+  5’-GCGATGGTTTGAGCGTCAAGCAT-3’
+
+
+# PARTE 2. Analicen la siguiente secuencia de una hebra del gene hmp (flavohemoglobina) de Escherichia coli, una bacteria mesófila, no patógena, enterobacteria y respondan: ¿cuál será la secuencia de aminoácidos de la flavohemoglobina?
+
+La secuencia de aminoácidos de la bacteria mesófila, no patógena, enterobacteria del gene hmp (flavohemoglobina) de Escherichia coli es:
+
+```{r}
+# Punto 1
+adn_replicado <- "ATGCTTGACGCTCAAACCATCGCTACAGTAAAAGCCACCATCCCTTTACTGGTGGAAACGGGGCCAAAGTTAACCGCCCATTTCTACGACCGTATGTTTACTCATAACCCAGAACTCAAAGAAATTTTTAACATGAGTAACCAGCGTAATGGCGATCAACGTGAAGCCCTGTTTAACGCTATTGCCGCCTACGCCAGTAATATTGAAAACCTGCCTGCGCTGCTGCCAGCGGTAGAAAAAATCGCGCAGAAGCACACCAGCTTCCAGATCAAACCGGAACAGTACAACATCGTCGGTGAACACCTGTTGGCAACGCTGGACGAAATGTTCAGCCCGGGGCAGGAAGTGCTGGACGCGTGGGGTAAAGCCTATGGTGTACTGGCTAATGTATTTATCAATCGCGAGGCGGAAATCTATAACGAAAACGCCAGCAAAGCCGGTGGTTGGGAAGGTACTCGCGATTTCCGCATTGTGGCTAAAACACCGCGCAGCGCGCTTATCACCAGCTTCGAACTGGAGCCGGTCGACGGTGGCGCAGTGGCAGAATACCGTCCGGGGCAATATCTCGGCGTCTGGCTGAAGCCGGAAGGTTTCCCACATCAGGAAATTCGTCAGTACTCTTTGACTCGCAAACCGGATGGCAAAGGCTATCGTATTGCGGTGAAACGCGAAGAGGGTGGGCAGGTATCCAACTGGTTGCACAATCACGCCAATGTTGGCGATGTCGTGAAACTGGTCGCTCCGGCAGGTGATTTCTTTATGGCTGTCGCAGATGACACACCAGTGACGTTAATCTCTGCCGGTGTTGGTCAAACGCCAATGCTGGCAATGCTCGACACGCTGGCAAAAGCAGGCCACACAGCACAAGTGAACTGGTTCCATGCGGCAGAAAATGGCGATGTTCACGCCTTTGCCGATGAAGTTAAGGAACTGGGGCAGTCACTGCCGCGCTTTACCGCGCACACCTGGTATCGTCAGCCGAGCGAAGCCGATCGCGCTAAAGGTCAGTTTGATAGCGAAGGTCTGATGGATTTGAGCAAACTGGAAGGTGCGTTCAGCGATCCGACAATGCAGTTCTATCTCTGCGGCCCGGTTGGCTTCATGCAGTTTACCGCGAAACAGTTAGTGGATCTGGGCGTGAAGCAGGAAAACATTCATTACGAATGCTTTGGCCCGCATAAGGTGCTGTAA"
+
+
+```
+
+```{r} 
+# Punto 2
+Secuenciatamano <- function(seq){
+  nchar(seq)
+}
+cat("\n")
+cat("Tamaño total de secuencia de DNA: \n")
+Secuenciatamano(adn_replicado)
+
+```
+
+```{r}
+# Punto 3
+porcientoBase <- function(seq){
+  total <- nchar(seq)
+  bases <- c("A","T","C","G")
+  freqs <- sapply(bases,function(b) sum(strsplit(seq, "")[[1]]==b))
+  
+  porcentaje <- freqs/total*100
+  return(porcentaje)
+}
+cat("\n")
+cat("Porcentaje de cada base en la secuencia de DNA: \n")
+porcientoBase(adn_replicado)
+
+```
+
+```{r}
+# Punto 4
+
+# Transcripción
+transcribir_adn <- function(adn_replicado) {
+  gsub("T", "U", adn_replicado)
+}
+arn_transcrito <- transcribir_adn(adn_replicado)
+
+# Traducción
+traducirProteina <- function(seq) {
+  codon_tabla <- list(
+    UUU="Phe", UUC="Phe", UUA="Leu", UUG="Leu", CUU="Leu", CUC="Leu", CUA="Leu", CUG="Leu",
+    AUU="Ile", AUC="Ile", AUA="Ile", AUG="Met", GUU="Val", GUC="Val", GUA="Val", GUG="Val",
+    UCU="Ser", UCC="Ser", UCA="Ser", UCG="Ser", CCU="Pro", CCC="Pro", CCA="Pro", CCG="Pro",
+    ACU="Thr", ACC="Thr", ACA="Thr", ACG="Thr", GCU="Ala", GCC="Ala", GCA="Ala", GCG="Ala",
+    UAU="Tyr", UAC="Tyr", UAA="Stop", UAG="Stop", CAU="His", CAC="His", CAA="Gln", CAG="Gln",
+    AAU="Asn", AAC="Asn", AAA="Lys", AAG="Lys", GAU="Asp", GAC="Asp", GAA="Glu", GAG="Glu",
+    UGU="Cys", UGC="Cys", UGA="Stop", UGG="Trp", CGU="Arg", CGC="Arg", CGA="Arg", CGG="Arg",
+    AGU="Ser", AGC="Ser", AGA="Arg", AGG="Arg", GGU="Gly", GGC="Gly", GGA="Gly", GGG="Gly"
+  )
+  
+  # Buscar el primer AUG en marco válido
+  for (i in seq(1, nchar(seq)-2, by = 3)) {
+    codon <- substr(seq, i, i+2)
+    if (codon == "AUG") {
+      start_index <- i
+      break
+    }
+  }
+  
+  if (!exists("start_index")) {
+    return("No se encontró codón de inicio (AUG) en marco válido")
+  }
+  
+  codones <- substring(seq, seq(start_index, nchar(seq)-2, 3), seq(start_index+2, nchar(seq), 3))
+  
+  aa <- c()
+  codon_paro <- NA
+  for (c in codones) {
+    if (c %in% names(codon_tabla)) {
+      aa_cod <- codon_tabla[[c]]
+      if (aa_cod == "Stop") {
+        codon_paro <- c
+        break
+      }
+      aa <- c(aa, aa_cod)
+    }
+  }
+  
+  cat("Secuencia de aminoácidos:\n")
+  cat(paste(aa, collapse = "-"), "\n")
+  
+  if (!is.na(codon_paro)) {
+    cat("Codón de paro encontrado al final: ", codon_paro, "\n")
+  } else {
+    cat("No se encontró codón de paro en el marco de lectura.\n")
+  }
+}
+
+# Ejecutar traducción
+traducirProteina(arn_transcrito)
+```
+
+
+# PARTE 3. Por último, investiguen y respondan las siguientes preguntas:
+
+## a) ¿Qué significa el formato FASTA de una secuencia?
+
+El formato FASTA es un formato de texto más plano que ser utilizado para la representación  de las diferencias, secuencias entre nucleótidos o aminoácidos. Tiene dos partes principales:
+
+
+- Una línea inicial que comienza con  (>) seguida del identificador de la diferente secuencia (y a veces información adicional).
+
+- Las líneas siguientes contienen la secuencia en sí (ADN, ARN o proteínas).
+
+Ejemplo:
+```{r}
+print(">NM_001256789 Alcohol dehydrogenase gene, E. coli ATGCGTATTGCGTCTGAAAGTCCGGAGCTG")
+```
+
+## b) ¿Qué bancos de datos existen para obtener secuencias de ADN de genomas de organismos?
+
+Algunos bancos de datos importantes:
+
+- [NCBI GenBank](https://www.ncbi.nlm.nih.gov/genbank/)
+- [EMBL-EBI (ENA)](https://www.ebi.ac.uk/ena)
+- [DDBJ (DNA Data Bank of Japan)](https://www.ddbj.nig.ac.jp/)
+- RefSeq (NCBI): Base de datos curada de secuencias.
+- [UCSC Genome Browser](https://genome.ucsc.edu/)
+- [Ensembl](https://www.ensembl.org/)
+
+c) Obtener la secuencia de ADN de la Alcohol Deshidrogenasa de Escherichia coli, Proteína ADHE, gene adhE desde la paquetería rentrez (revisar función rentrez_fetch) y almacenarla en un vector. Con la paquetería Biostrings, realicén un print del vector y obtengan la secuencia de aminoácidos que codifica el gen (revisar la siguiente [liga Links to an external site.](https://www.bioconductor.org/packages/devel/bioc/vignettes/Biostrings/inst/doc/BiostringsQuickOverview.pdf)) para las funciones principales de Biostrings)
+
+```{r}
+
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+BiocManager::install(c("rentrez", "Biostrings"), ask = FALSE)
+
+# Paso 1: Obtener la secuencia del gen adhE de Escherichia coli
+# Este es el accession number del gen adhE en Escherichia coli (K12): U00096.3 (posición 465108..468862)
+adhE_seq <- entrez_fetch(db = "nuccore",
+                         id = "U00096.3",
+                         rettype = "fasta",
+                         strand = 1,
+                         seq_start = 465108,
+                         seq_stop = 468862)
+
+# Paso 2: Limpiar la secuencia
+adhE_seq_clean <- gsub(">", "", adhE_seq)
+adhE_seq_clean <- unlist(strsplit(adhE_seq_clean, "\n"))
+adhE_seq_clean <- paste(adhE_seq_clean[-1], collapse = "")
+
+# Paso 3: Convertir a objeto DNAString
+dna <- DNAString(adhE_seq_clean)
+print(dna)
+
+# Paso 4: Traducir a secuencia de aminoácidos
+aa <- Biostrings::translate(dna)
+print(aa)
+
+```
+
+# PARTE 4.
+
+```{r}
+
+# Accesiones
+virus_ids <- c("NC_012532.1", "NC_004718.3", "NC_045512.2", "NC_019843.3", "NC_001477.1")
+names(virus_ids) <- c("Zika", "SARS", "Wuhan", "MERS", "Dengue")
+
+cat("Cada uno de estos ids han sido revisados para que sean de los mismos autores y evitar discrepancias o sesgos en los datos")
+
+influenza_ids <- c("GQ132138.1", "GQ132179.1", "GQ132176.1", "GQ132145.1",
+                   "GQ132161.1", "GQ132155.1", "GQ132150.1", "GQ132167.1")
+
+# Función para descargar secuencia como vector de caracteres
+descargar_secuencia <- function(id) {
+  fasta_txt <- entrez_fetch(db = "nuccore", rettype = "fasta", retmode = "text", id = id)
+  archivo <- paste0(id, ".fasta")
+  write(fasta_txt, archivo)
+  seq <- read.fasta(archivo)[[1]]
+  return(seq)
+}
+
+# Descargar virus
+cat("Descargando secuencias virales...\n")
+virus_seqs <- lapply(virus_ids, descargar_secuencia)
+
+# Descargar influenza
+cat("Descargando segmentos de Influenza...\n")
+influenza_seqs <- lapply(influenza_ids, descargar_secuencia)
+
+# Tamaño
+cat("\nTamaños de virus:\n")
+print(sapply(virus_seqs, length))
+
+cat("\nTamaños de segmentos de influenza:\n")
+print(sapply(influenza_seqs, length))
+
+# Composición de nucleótidos 
+cat("\nComposición de nucleótidos de virus:\n")
+print(lapply(virus_seqs, function(seq) table(seq)))
+
+# Contenido GC 
+cat("\nContenido GC de virus:\n")
+print(sapply(virus_seqs, GC))
+
+# Secuencias complementarias
+cat("\nSecuencias complementarias (primeros 60 nt):\n")
+for (i in seq_along(virus_seqs)) {
+  nombre <- names(virus_seqs)[i]
+  
+  # Convertir a DNAString
+  original_dna <- DNAString(c2s(virus_seqs[[i]][1:60]))
+  complementaria_dna <- DNAString(c2s(comp(virus_seqs[[i]][1:60])))
+
+  cat("\n", nombre, "\n")
+  cat("Original:\n")
+  print(original_dna)
+  cat("Complementaria:\n")
+  print(complementaria_dna)
+}
+
+# Gráfica de composición de nucleótidos de virus
+comp_data <- do.call(rbind, lapply(names(virus_seqs), function(nombre){
+  tabla <- as.data.frame(table(virus_seqs[[nombre]]))
+  colnames(tabla) <- c("Nucleotido", "Frecuencia")
+  tabla$Virus <- nombre
+  return(tabla)
+}))
+
+ggplot(comp_data, aes(x = Nucleotido, y = Frecuencia, fill = Virus)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Composición de nucleótidos en 5 virus",
+       x = "Nucleótido", y = "Frecuencia") +
+  theme_minimal()
+
+# Función para descargar y guardar fasta
+descargar_y_guardar <- function(id) {
+  fasta_txt <- entrez_fetch(db = "nuccore", rettype = "fasta", retmode = "text", id = id)
+  lines <- str_split(fasta_txt, "\n")[[1]]
+  header <- lines[1]
+  seq <- str_c(lines[-1], collapse = "")
+  archivo <- paste0(id, ".fasta")
+  write.fasta(sequences = list(seq), names = str_remove(header, "^>"), file.out = archivo)
+  return(archivo)
+}
+
+# Descargar todos y guardar nombres
+archivos_fasta <- sapply(influenza_ids, descargar_y_guardar)
+
+# Relación de IDs con proteínas
+proteinas <- c(
+  "PB2 (Polimerasa básica 2)",
+  "PB1 (Polimerasa básica 1)",
+  "PA (Polimerasa ácida)",
+  "HA (Hemaglutinina)",
+  "NP (Nucleoproteína)",
+  "NA (Neuraminidasa)",
+  "M1/M2 (Proteínas de matriz)",
+  "NS1/NEP (Proteínas no estructurales)"
+)
+names(proteinas) <- influenza_ids
+
+# Leer y analizar con Biostrings y seqinr
+cat("----- ANÁLISIS DE INFLUENZA SEGMENTOS -----\n")
+resultados <- list()
+frecuencias_plot <- list()
+
+for (archivo in archivos_fasta) {
+  id <- str_remove(archivo, ".fasta")
+  nombre_proteina <- proteinas[id]
+  
+  # Leer con Biostrings
+  seq <- readDNAStringSet(archivo)[[1]]
+  
+  # 1. Tamaño
+  len <- nchar(as.character(seq))
+  
+  # 2. Frecuencia de nucleótidos
+  frec <- alphabetFrequency(seq)[c("A", "T", "C", "G")]
+  
+  # 3. Contenido GC
+  contenido_gc <- sum(frec[c("G", "C")]) / sum(frec)
+  
+  # 4. Secuencia complementaria (primeros 60 nt)
+  original <- as.character(subseq(seq, 1, 60))
+  comp <- as.character(reverseComplement(subseq(seq, 1, 60)))
+  
+  # Guardar resultados
+  resultados[[nombre_proteina]] <- list(
+    longitud = len,
+    frecuencia = frec,
+    gc = contenido_gc,
+    original = original,
+    complementaria = comp
+  )
+  
+  # Para gráfica
+  df_temp <- data.frame(
+    Nucleotido = names(frec),
+    Frecuencia = as.numeric(frec),
+    Segmento = nombre_proteina
+  )
+  frecuencias_plot[[nombre_proteina]] <- df_temp
+}
+
+# Imprimir resultados
+for (nombre in names(resultados)) {
+  cat("\n=== Segmento:", nombre, "===\n")
+  cat("Tamaño:", resultados[[nombre]]$longitud, "\n")
+  cat("Frecuencias:\n")
+  print(resultados[[nombre]]$frecuencia)
+  cat("Contenido GC:", round(resultados[[nombre]]$gc, 4), "\n")
+  
+  cat("Original:\n")
+  print(DNAString(resultados[[nombre]]$original))
+  
+  cat("Complementaria:\n")
+  print(DNAString(resultados[[nombre]]$complementaria))
+}
+
+# 5. Gráfica con nombres de proteínas
+df_plot <- do.call(rbind, frecuencias_plot)
+
+ggplot(df_plot, aes(x = Nucleotido, y = Frecuencia, fill = Segmento)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Composición de nucleótidos en segmentos de Influenza",
+       x = "Nucleótido", y = "Frecuencia") +
+  theme_minimal()
+
+```
+# Referencias
+
+Chargaff, E. (1950). Chemical specificity of nucleic acids and mechanism of their enzymatic degradation. *Experientia, 6*(6), 201–209. [https://doi.org/10.1007/BF02173653](https://doi.org/10.1007/BF02173653)
+
+Alberts, B., Johnson, A., Lewis, J., Raff, M., Roberts, K., & Walter, P. (2014). *Molecular biology of the cell* (6th ed.). Garland Science.
+
+Musto, H., Naya, H., Zavala, A., Romero, H., Alvarez-Valin, F., & Bernardi, G. (2004). Correlations between genomic GC levels and optimal growth temperatures in prokaryotes. *FEBS Letters, 573*(1–3), 73–77. [https://doi.org/10.1016/j.febslet.2004.07.051](https://doi.org/10.1016/j.febslet.2004.07.051)
+
+Liu, L. F., & Wang, J. C. (1987). Supercoiling of the DNA template during transcription. *Proceedings of the National Academy of Sciences, 84*(20), 7024–7027. [https://doi.org/10.1073/pnas.84.20.7024](https://doi.org/10.1073/pnas.84.20.7024)
+
+Blake, R. D., & Delcourt, S. G. (1996). Thermodynamic effects of formamide on DNA stability. *Nucleic Acids Research, 24*(11), 2095–2103. [https://doi.org/10.1093/nar/24.11.2095](https://doi.org/10.1093/nar/24.11.2095)
+
+SantaLucia, J. (1998). A unified view of polymer, dumbbell, and oligonucleotide DNA nearest-neighbor thermodynamics. *Proceedings of the National Academy of Sciences, 95*(4), 1460–1465. [https://doi.org/10.1073/pnas.95.4.1460](https://doi.org/10.1073/pnas.95.4.1460)
+
+Rychlik, W., Spencer, W. J., & Rhoads, R. E. (1990). Optimization of the annealing temperature for DNA amplification in vitro. *Nucleic Acids Research, 18*(21), 6409–6412. [https://doi.org/10.1093/nar/18.21.6409](https://doi.org/10.1093/nar/18.21.6409)
+
+Owczarzy, R., Vallone, P. M., Gallo, F. J., Paner, T. M., Lane, M. J., & Benight, A. S. (1997). Predicting sequence-dependent melting stability of short duplex DNA oligomers. *Biopolymers, 44*(3), 217–239. [https://doi.org/10.1002/(SICI)1097-0282(1997)44:3<217::AID-BIP6>3.0.CO;2-P](https://doi.org/10.1002/(SICI)1097-0282(1997)44:3<217::AID-BIP6>3.0.CO;2-P)
+
+Benson, D. A., Cavanaugh, M., Clark, K., Karsch-Mizrachi, I., Lipman, D. J., Ostell, J., & Sayers, E. W. (2013). GenBank. *Nucleic Acids Research, 41*(D1), D36–D42. [https://doi.org/10.1093/nar/gks1195](https://doi.org/10.1093/nar/gks1195)
+
+Cochrane, G., Karsch-Mizrachi, I., & Takagi, T. (2016). The International Nucleotide Sequence Database Collaboration. *Nucleic Acids Research, 44*(D1), D48–D50. [https://doi.org/10.1093/nar/gkv1323](https://doi.org/10.1093/nar/gkv1323)
+
+Mashima, J., Kodama, Y., Fujisawa, T., Katayama, T., Okuda, Y., Kaminuma, E., Ogasawara, O., Okubo, K., Nakamura, Y., & Takagi, T. (2017). DNA Data Bank of Japan. *Nucleic Acids Research, 45*(D1), D25–D31. [https://doi.org/10.1093/nar/gkw1001](https://doi.org/10.1093/nar/gkw1001)
+
+Pruitt, K. D., Tatusova, T., Brown, G. R., & Maglott, D. R. (2012). NCBI Reference Sequences (RefSeq): Current status, new features and genome annotation policy. *Nucleic Acids Research, 40*(D1), D130–D135. [https://doi.org/10.1093/nar/gkr1079](https://doi.org/10.1093/nar/gkr1079)
+
+Navarro Gonzalez, J., Zweig, A. S., Speir, M. L., Schmelter, D., Rosenbloom, K. R., Raney, B. J., ... & Kent, W. J. (2021). The UCSC Genome Browser database: 2021 update. *Nucleic Acids Research, 49*(D1), D1046–D1057. [https://doi.org/10.1093/nar/gkaa1070](https://doi.org/10.1093/nar/gkaa1070)
+
+Yates, A. D., Achuthan, P., Akanni, W., Allen, J., Allen, J., Alvarez-Jarreta, J., ... & Flicek, P. (2020). Ensembl 2020. *Nucleic Acids Research, 48*(D1), D682–D688. [https://doi.org/10.1093/nar/gkz966](https://doi.org/10.1093/nar/gkz966)
+
+

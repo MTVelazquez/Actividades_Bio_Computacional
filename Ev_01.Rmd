@@ -1,0 +1,306 @@
+---
+title: "Evidencia 1 | Análisis de Biología Computacional"
+author: "Marcelo Treviño Velazquez A01286389"
+date: "2025-04-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# PARTE 1
+
+## Responde justificadamente las siguientes preguntas (Extensión máxima 2 cuartillas):
+
+1. Investiga, ¿Cuál fue la situación COVID-19 a nivel mundial, y el impacto que tuvo en tu país de origen, estado de origen y en tu municipio, alcaldía o colonia? Puedes iniciar tu búsqueda en el sitio de Johns HopkinsLinks to an external site..
+
+La pandemia del Covid-19, causada por el virus SARS-CoV-2, comenzó a fines del 2019 y fue declarada emergencia sanitaria mundial por la OMS en marzo del 2020. A nivel mundial el número total de casos a la fecha 10/03/2023 fue alrededor de 676 millones, el número total de muertes fue de 6.8 millones y el número de dosis de la vacuna administradas es de 13,000 millones, sin embargo el número de vacunas administradas es más alto debido a que algunas vacunas requieren más de dos dosis. En México el primer caso registrado fue en febrero del 2020, un mes después se implementó la jornada nacional de sana distancia, esto para reducir las posibilidades de contagios, en México se tuvieron más de 7.5 millones de contagiados, fallecieron alrededor de 3.3 miles de personas y en Nuevo León se tuvieron más de 400 mil casos registrados y fallecieron más de 15 mil personas.
+
+2. ¿Cuál fue la primera variante del virus que se propagó a todo el mundo?
+
+La primera variante reconocida a nivel mundial es la variante alfa, conocida también como B.1.1.7. Se identificó oficialmente y fue detectada por primera vez en el Reino Unido en septiembre de 2020. La OMS la designó con el nombre “Alfa” en mayo de 2021.
+
+3. ¿Cuáles fueron las principales variantes del virus que se propagaron durante la pandemia?
+
+Durante la pandemia de COVID-19, varias variantes del SARS-CoV-2 surgieron y se propagaron a nivel mundial, siendo clasificadas por la Organización Mundial de la Salud (OMS) como Variantes de Preocupación (VOC) debido a su mayor transmisibilidad, gravedad o evasión inmunitaria. Las principales fueron:
+
+- **Alfa (B.1.1.7)**: Detectada por primera vez en el Reino Unido en septiembre de 2020. Fue la primera variante en ser clasificada como "de preocupación" y se caracterizó por una mayor capacidad de transmisión.
+
+- **Beta (B.1.351)**: Identificada en Sudáfrica en mayo de 2020, se destacó por su capacidad para evadir parcialmente la inmunidad generada por infecciones previas o vacunas.
+
+- **Gamma (P.1)**: Surgió en Brasil a finales de 2020, especialmente en la región de Manaos. Presentaba mutaciones similares a Beta en la proteína Spike, asociadas a una mayor reinfección.
+
+- **Delta (B.1.617.2)**: Apareció en la India a finales de 2020 y se convirtió rápidamente en la variante dominante a nivel mundial durante gran parte de 2021, debido a su alta transmisibilidad y virulencia.
+
+- **Ómicron (B.1.1.529)**: Detectada en Sudáfrica en noviembre de 2021. Esta variante mostró un número inusualmente alto de mutaciones, especialmente en la proteína Spike, lo que le permitió una gran capacidad de evasión inmunitaria y una rápida propagación global.
+
+4. Imagina que te encuentras en una situación similar a la de Li Wenliang, médico chino que intentó alertar sobre el brote de coronavirus en su país, pero fue detenido por las autoridades y obligado a retractarse, ¿qué harías en su caso? Selecciona un inciso: a) Lo reportas al centro de investigación o la universidad. b) Lo reportas a la prensa. c) Guardas la información. Elige y justifica tu respuesta. Revisa el siguiente video como apoyo:
+
+*Andrés*: En su caso lo reportaría al centro de investigación o la universidad, esto debido a que, se puede llegar a contactar a las personas involucradas en las actividades con Li Wenliang o las personas cercanas, esto para ponerlas en cuarentena, hasta poder hallar alguna cura o ya no sean riesgo de propagación del virus, de esta forma se puede reducir más la propagación del virus, a comparación de las otras opciones que pueden llegar a generar caos o desinformación haciendo que el virus se propague.
+
+*Marcelo*: Si estuviera en la posición de Li Wenliang, siendo un médico que reconoció al coronavirus antes del desastre mundial, habría hecho lo mismo que él, y probablemente hubiera acudido primero con la universidad o centro de investigación al que estuviera destinado el proyecto del covid para que hiciera cuarentena dentro de las instalaciones y controlar el virus. Sin embargo, si esto no ayuda, es decir, si el centro de investigación no hace nada que realmente ayude, en este caso tendría la audacia de alertar por medio de redes sociales y la prensa para que todo el mundo se resguarde del virus letal. Por lo tanto, mi primera opción sería la a), pero si no ayuda, optaría por la b). Al ser un virus mortal, no acudiría a la opción c) ya que mis valores y moral no me permitirían guardar información tan importante que puede afectar a la gran mayoría de seres humanos.
+
+*Desiderio*: Siento que aunque para el bien global sería lo mejor alertar a los reporteros, porque muy posiblemente si anunciaba a la universidad tendría el mismo caso de la policía al ser pública no puede publicar el documento porque primero tiene que pasar por algunos mandos que siento que operarían apoyando a la misma policía, ya que algunos de esos puestos son puestos por la junta directiva de la misma y otros como cargos públicos que al no actuar por el ‘bien publico’ pudieran ser suspendidos, pero actuaria igual que Li, ya que aunque si pudiera ayudar a muchas personas si no encuentro una forma anónima de enviar la información a los noticieros siento que me expondría mucho al gobierno de China que es muy totalitario así que si tuviera algún tipo de posibilidad de salir afectada guardería la información.
+
+*Alana*: Sinceramente yo lo reportaría a la prensa ya que siento que es lo que haría más mediático y haría que investigadores de diferentes países se interesen en el virus y puedan empezar a hacer una investigación de este, así mismo estoy segura que la sociedad en general pondrá demasiada presión en que se haga algo al respecto y que las autoridades se hagan responsables de lo que se tienen que hacer responsables. Así mismo las personas de una u otra manera tendrían mas precaución sobre el virus,  y empresas podrían empezar a cerrar vuelos antes de que el virus se vuelva global la información lo sería antes y pudiera ayudar mucho a prevenir que se propague. 
+
+
+# PARTE 2
+
+## Realiza lo siguiente en un script de R y código:
+
+1. Obtén las secuencias de las variantes de SARS-CoV-2 desde el NCBILinks to an external site. o el buscador de virus del NCBILinks to an external site..
+
+- Alfa (B.1.1.7) = OK435307.1
+- Beta (B.1.351) = MZ202314.1
+- Gamma (P.1) = OK435311.1
+- Delta (B.1.617.2) = ON482856.1
+- Épsilon (B.1.427) = MW493681.1
+- Épsilon (B.1.429) = MW306426.1
+- Ómicron (B.1.1.529) = MZ690385.1
+
+
+2. Las variantes a buscar son: Alfa, Beta, Gamma, Delta, Epsilon y Omicron.
+
+3. De manera individual justifiquen brevemente: ¿por qué decidiste investigar tu gen de interés? (Esta justificación no debe de ser una opinión, debe de estar sustentada con información científica, máximo 300 palabras por integrante). 
+
+*Elegimos como equipo el Gen N (Nucleocapside)*
+
+*Andrés*: Elegimos el gen N debido a que ayuda a saber si una persona tiene la infección del coronavirus SARS-CoV-2, la prueba PCR que significa reacción en cadena de la polimerasa, es una técnica de biología molecular que ayuda a detectar el genoma del agente infeccioso del virus, esto es una forma de detectar el virus, la cuál es muy efectiva al poder realizarse en poco tiempo.
+
+*Marcelo*: Elegimos el gen Nucleocapside ya que nos pareció interesante que gracias a este, es posible la detección del virus con las pruebas de pcr, un procedimiento rápido para detectar el sarscov 2 en menos de 20 minutos. Este fue clave durante la pandemia para poder identificar a pacientes infectados del virus.
+
+*Desiderio*: Elegí el gen N del SARS-CoV-2, que codifica la nucleocápside del virus, es uno de los genes más estudiados  de esta sepa y documentados desde el inicio de pandemia, este  candidato tener una búsqueda o investigación por diferentes razones. Primero, su función es fundamental algo fundamental para el virus: la proteína N protege el material genético masviral, facilita su empaquetamiento y participa en la replicación y ensamblaje del virus, lo cual la convierte en un blanco importante para estudios científicos y en el desarrollo de diagnósticos. Otra ventaja es la gran disponibilidad de información. Al ser un gen muy investigado, existen numerosas bases de datos públicas para el mismo (como GenBank o GISAID) donde se puede encontrar su secuencia que facilitan su investigación, lo que permite acceder rápidamente a datos reales para realizar análisis de longitud, composición de bases, que beneficia en la busqueda de su  %GC y generación de secuencias complementarias. Además, su tamaño relativamente más pequeño que otras variables (alrededor de 1,260 bases) permite realizar estudios prácticos con los archivos sean demasiado pesados o más complejos.
+
+*Alana*: El gen N codifica la proteína de la nucleocápside, que encapsula el ARN viral, protegiéndolo y facilitando su replicación. Debido a que esta proteína está altamente concentrada en el coronavirus hace que sea más interesante investigar esto, Además, la proteína N interactúa con proteínas celulares, modulando la respuesta inmune del huésped, lo que la hace relevante para entender la patogénesis del COVID-19. Esto nos permite estudiar mutaciones que pueden estar afectando a la estabilidad del virus. Este gen también puede ayudar a la creación de vacunas y antivirales debido a que se han identificado mutaciones en el gen N que se relacionan con el cambio de la infectividad, y esto hace que su estructura y su inmunogenicidad nos ayuden a combatir con el sars cov. Y esto personalmente me parece bastante interesante de investigar porque nos pudiera ayudar a entender cómo fue el proceso de la creación de las vacunas y también contrarrestar todas las teorías que rodean a estas. 
+
+
+4. Calcula la longitud de las secuencias del gen de cada variante.
+```{r}
+# Cargar librerías
+library(ape)
+library(phangorn)
+library(phytools)
+library(geiger)
+library(seqinr)
+library(adegenet)
+library(ggtree)
+library(DECIPHER)
+library(viridis)
+library(ggmsa)
+library(ggplot2)
+library(Biostrings)
+library(rentrez)
+
+```
+
+```{r}
+genN_covid <- c(
+  original = "NC_045512.2",
+  alfa = "OK435307.1",
+  beta = "MZ202314.1",
+  gamma = "OK435311.1",
+  delta = "ON482856.1",
+  epsilon_B1427 = "MW493681.1",
+  epsilon_B1429 = "MW306426.1",
+  omicron = "MZ690385.1"
+)
+
+genN_coords <- list(
+  c(28274, 29533),  # Original
+  c(28274, 29533),  # Alfa
+  c(28273, 29532),  # Beta
+  c(28284, 29543),  # Gamma
+  c(28274, 29533),  # Delta
+  c(28274, 29533),  # Épsilon B.1.427
+  c(28274, 29533),  # Épsilon B.1.429
+  c(28274, 29533)   # Ómicron
+)
+
+```
+
+```{r}
+# Crear carpeta
+dir.create("genN_fasta", showWarnings = FALSE)
+setwd("C:/Users/mtrev/R/Análisis de Biología computacional/genN_fasta")
+
+# Descargar secuencias
+genN_sequences <- list()
+
+for (i in seq_along(genN_covid)) {
+  seq_data <- entrez_fetch(db = "nuccore", id = genN_covid[i], rettype = "fasta", retmode = "text")
+  seq_lines <- unlist(strsplit(seq_data, "\n"))
+  seq_only <- seq_lines[!grepl("^>", seq_lines)]
+  full_sequence <- paste(seq_only, collapse = "")
+  
+  start <- genN_coords[[i]][1]
+  end <- genN_coords[[i]][2]
+  genN_sequences[[i]] <- substr(full_sequence, start, end)
+}
+
+names(genN_sequences) <- names(genN_covid)
+
+# Guardar en FASTA
+write.fasta(sequences = genN_sequences, names = names(genN_sequences), file.out = "genN_seqs.fasta")
+
+list.files(getwd())
+
+
+
+```
+5. Crea una gráfica donde compares las bases de ADN que componen a cada uno de los genes de las variantes del virus.
+```{r}
+genN_seq_not_align <- Biostrings::readDNAStringSet("genN_fasta/genN_seqs.fasta", format = "fasta")
+genN_seq_not_align
+
+
+```
+
+```{r}
+longitudes <- width(genN_seq_not_align)
+longitudes_df <- data.frame(Variante = names(genN_seq_not_align), Longitud = longitudes)
+print(longitudes_df)
+
+```
+
+```{r}
+ggplot(longitudes_df, aes(x = Variante, y = Longitud, fill = Variante)) +
+  geom_bar(stat = "identity", color = "black") +
+  labs(title = "Longitud del Gen N en diferentes variantes de SARS-CoV-2",
+       x = "Variante",
+       y = "Longitud (bases)") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  geom_text(aes(label = Longitud), vjust = -0.5)
+
+```
+6. Agrega una interpretación escrita de las gráficas que íntegras.
+
+En la gráfica generada se muestra que la longitud del gen N es igual para todas las variantes analizadas, esto nos dice que a pesar de las mutaciones que diferencian a estas variantes en otras regiones del genoma, el gen N se ha mantenido conservado en términos de longitud. Biológicamente hablando el gen N es crucial para el empaquetamiento de ARN viral y la replicación del virus. Lo que nos podría indicar que las mutaciones en este gen no han afectado a su tamaño, lo que podría ser indicativo de una presión selectiva para mantener su función estructural. 
+
+El gen N es el encargado de codificar la proteína de la nucleocápside del virus SARS-CoV-2, que envuelve su material genético. Es uno de los genes objetivo más comunes en las pruebas de RT-PCR para detectar el virus, junto con otros. El gen N es altamente conservado, es decir no muta mucho entre las distintas variantes del virus, esto hace que sea un punto confiable a detectar en las diferentes cepas del virus.
+
+El gen N es una mezcla entre ser sensible y específico, la proteína N es una de las más expresadas en el virus, lo que significa que hay muchas copias del ARN del gen N en una infección, incluso en etapas tempranas o con baja carga viral, esto nos hace decir que es sensible, por otro lado,, los cebadores y sondas de la PCR están diseñados para unirse sólo a secuencias únicas del gen N de SARS-CoV-2, evitando la amplificación de otros coronavirus o patógenos, y esto nos hace decir que a su vez es específico. 
+
+7. ¿Cuál es el %GC del gen de tu interés de cada variante?
+```{r}
+gc_content <- function(seq) {
+  seq <- toupper(as.character(seq))
+  gc_count <- lengths(regmatches(seq, gregexpr("[GC]", seq)))
+  total_bases <- nchar(seq)
+  return(round((gc_count / total_bases) * 100, 2))
+}
+
+gc_percentages <- sapply(genN_seq_not_align, gc_content)
+
+gc_df <- data.frame(Variante = names(gc_percentages), Porcentaje_GC = gc_percentages)
+print(gc_df)
+
+```
+8. Si el %GC del gen cambia en las distintas variantes, ¿Qué consecuencias conllevaría esto? 
+
+El %GC influye en la eficiencia de traducción. Un aumento en el %GC puede optimizar la interacción con ribosomas, incrementando la producción de la proteína N, que es crucial para ensamblar viriones y modular la respuesta inmune (Mu et al., 2020). Un %GC reducido podría disminuir la expresión proteica, afectando la infectividad.
+
+Un %GC más alto aumenta la estabilidad termodinámica del ARN debido a los enlaces triples de hidrógeno entre G y C, lo que puede mejorar la eficiencia de replicación o la resistencia del ARN viral a la degradación (Yao et al., 2021). Por el contrario, un %GC más bajo podría facilitar mutaciones, afectando la evolución viral.
+
+9. Crea las secuencias contrasentido (complementaria) de cada gen de cada variante.
+```{r}
+complement_seq <- function(seq) {
+  comp <- complement(DNAString(seq))
+  rev_comp <- reverse(comp)
+  return(as.character(rev_comp))
+}
+
+contrasentido_list <- lapply(genN_seq_not_align, complement_seq)
+
+# Mostrar primeras 100 bases
+for (i in seq_along(contrasentido_list)) {
+  cat(paste0(names(contrasentido_list)[i], " complementaria (primeras 100 bases):\n"))
+  cat(substr(contrasentido_list[[i]], 1, 100), "\n\n")
+}
+
+```
+
+```{r}
+# Orientar
+genN_seq_not_align <- DECIPHER::OrientNucleotides(genN_seq_not_align)
+
+# Alinear
+genN_seq_align <- DECIPHER::AlignSeqs(genN_seq_not_align)
+
+```
+```{r}
+DECIPHER::BrowseSeqs(genN_seq_align, highlight=1)
+
+
+```
+
+
+10. Agrega una gráfica con el resultado del alineamiento de los aminoácidos de las proteínas de las diferentes variantes de SARS-COV-2 que investigaste e integra una interpretación.
+```{r}
+Biostrings::writeXStringSet(genN_seq_align, file="genN_seq_align.fasta")
+
+ggmsa(genN_seq_not_align, 1, 60, color = "Chemistry_NT", seq_name = TRUE)
+
+```
+
+```{r}
+genN_aligned <- seqinr::read.alignment("genN_seq_align.fasta", format = "fasta")
+matriz_distancia <- seqinr::dist.alignment(genN_aligned, matrix = "similarity")
+
+temp <- as.data.frame(as.matrix(matriz_distancia))
+table.paint(temp, cleg=0, clabel.row=0.5, clabel.col=0.5) + scale_color_viridis()
+
+```
+
+```{r}
+genN_tree <- ape::nj(matriz_distancia)
+class(genN_tree)
+genN_tree <- ape::ladderize(genN_tree)
+
+plot(genN_tree, cex = 0.6)
+title("Evolución molecular del Gen N del SARS-CoV-2")
+
+str(genN_tree)
+ggtree(genN_tree) + geom_tiplab()
+
+
+```
+
+```{r}
+plot_genN <- ggtree(genN_tree) + geom_tiplab()
+
+data <- ggmsa::tidy_msa(genN_seq_not_align, 1, 60)
+
+plot_genN + geom_facet(geom = geom_msa, data = data, panel = "msa", color = "Chemistry_NT") +
+  xlim_tree(1)
+
+```
+
+# Conclusion
+En el presente análisis se realizó una comparación de las secuencias del gen N entre diferentes variantes del SARS-CoV-2. El alineamiento de los primeros 60 nucleótidos de las secuencias mostró una alta conservación generalizada, evidenciando pocas mutaciones puntuales a lo largo del fragmento analizado. Esto sugiere que el gen N, al ser fundamental para funciones estructurales del virus, tiende a permanecer estable durante la evolución viral, probablemente debido a una fuerte presión de selección conservadora.
+
+El análisis de la matriz de distancias reveló que algunas variantes, como Épsilon B.1.427 y Épsilon B.1.429, presentan alta similitud entre sí, mientras que otras variantes como Gamma y Ómicron muestran mayor divergencia respecto a la variante original de Wuhan. Esto indica que, aunque el gen N se mantiene conservado, sí existen acumulaciones de pequeñas variaciones en ciertas ramas evolutivas del virus.
+
+La representación filogenética mediante el método neighbor-joining permitió visualizar las relaciones evolutivas entre las variantes. Se observa una clara agrupación de las variantes Épsilon, lo que refuerza su cercanía genética. Por otro lado, variantes como Gamma y Ómicron se posicionan más alejadas del linaje original, lo cual puede reflejar adaptaciones independientes en diferentes contextos geográficos y epidemiológicos.
+
+Finalmente, la integración del alineamiento y el árbol filogenético evidencia cómo, incluso dentro de un gen altamente conservado, pequeñas variaciones pueden ser utilizadas para rastrear la evolución y diferenciación de linajes virales.
+
+*Referencias*
+
+- (Eiros & Hernández, 2022) [La evolución en variantes del SARS-CoV-2 y su repercusión clínica y sanitaria. Revista Clínica Española, 222(7), 414–416. https://doi.org/10.1016/j.rce.2021.12.004]
+
+- (Johns Hopkins University, n.d.) [COVID-19 Map - Johns Hopkins Coronavirus Resource Center. https://coronavirus.jhu.edu/map.html]
+
+- (Secretaría de Salud de México, n.d.) [Variantes del virus SARS-CoV-2. https://www.gob.mx/salud/articulos/variantes-del-virus-sars-cov2?idiom=es]
+
+- (Cov-Lineages, n.d.) [Cov-Lineages.org. https://cov-lineages.org/]
+
+- (Yao et al., 2021) [Molecular architecture of the SARS-CoV-2 virus. Virology Journal, 18(1), 1–12.]
+
+- (Mu et al., 2020) [SARS-CoV-2 mutations and their viral variants. Science China Life Sciences, 63(10), 1467–1473.]
+
+- (Sule & Oluwayelu, 2020) [Real-time RT-PCR for COVID-19 diagnosis: Challenges and prospects. Pan African Medical Journal, 35(Suppl 2), 121. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7875755/]
+
+- (Lippi, Simundic & Plebani, 2020) [SARS-CoV-2 RT-PCR en ausencia de estándares de referencia no puede garantizar un rendimiento analítico confiable. Revista Española de Quimioterapia, 33(5), 319–321.]

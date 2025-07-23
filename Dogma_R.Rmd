@@ -1,0 +1,132 @@
+---
+title: "GenomicaR_A01286389"
+author: "Marcelo Treviño Velazquez"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Punto 1
+n <- as.integer(readline(prompt="Ingrese la longitud del ADN: "))
+
+generar_adn <- function(longitud) {
+  nucleotidos <- c("A", "T", "C", "G")
+  adn <- paste(sample(nucleotidos, longitud, replace=TRUE), collapse="")
+  return(adn)
+}
+
+adn_replicado <- generar_adn(n)
+cat("Secuencia aleatoria de DNA de tamaño n: \n")
+print(adn_replicado)
+
+```
+
+```{r}
+# Punto 2
+Secuenciatamano <- function(seq){
+  nchar(seq)
+}
+cat("\n")
+cat("Tamaño total de secuencia de DNA: \n")
+Secuenciatamano(adn_replicado)
+
+```
+
+```{r}
+# Punto 3
+porcientoBase <- function(seq){
+  total <- nchar(seq)
+  bases <- c("A","T","C","G")
+  freqs <- sapply(bases,function(b) sum(strsplit(seq, "")[[1]]==b))
+  
+  porcentaje <- freqs/total*100
+  return(porcentaje)
+}
+cat("\n")
+cat("Porcentaje de cada base en la secuencia de DNA: \n")
+porcientoBase(adn_replicado)
+
+```
+
+```{r}
+# Punto 4
+transcribir_adn <- function(adn_replicado) {
+  transcripcion <- function(base) {
+    if (base == "A") return("U")
+    if (base == "T") return("A")
+    if (base == "C") return("G")
+    if (base == "G") return("C")
+  }
+  arn_transcrito <- paste(sapply(strsplit(adn_replicado, NULL)[[1]], transcripcion), collapse="")
+  return(arn_transcrito)
+}
+cat("\n")
+cat("Pasar de DNA a RNA: \n")
+arn_transcrito <- transcribir_adn(adn_replicado)
+print(paste("ARN transcrito: 5'-", arn_transcrito, "-3'"))
+
+```
+
+```{r}
+# Punto 5
+traducirProteina <- function(seq) {
+  codon_tabla <- list(
+    UUU="Phe", UUC="Phe", UUA="Leu", UUG="Leu", CUU="Leu", CUC="Leu", CUA="Leu", CUG="Leu",
+    AUU="Ile", AUC="Ile", AUA="Ile", AUG="Met", GUU="Val", GUC="Val", GUA="Val", GUG="Val",
+    UCU="Ser", UCC="Ser", UCA="Ser", UCG="Ser", CCU="Pro", CCC="Pro", CCA="Pro", CCG="Pro",
+    ACU="Thr", ACC="Thr", ACA="Thr", ACG="Thr", GCU="Ala", GCC="Ala", GCA="Ala", GCG="Ala",
+    UAU="Tyr", UAC="Tyr", UAA="Stop", UAG="Stop", CAU="His", CAC="His", CAA="Gln", CAG="Gln",
+    AAU="Asn", AAC="Asn", AAA="Lys", AAG="Lys", GAU="Asp", GAC="Asp", GAA="Glu", GAG="Glu",
+    UGU="Cys", UGC="Cys", UGA="Stop", UGG="Trp", CGU="Arg", CGC="Arg", CGA="Arg", CGG="Arg",
+    AGU="Ser", AGC="Ser", AGA="Arg", AGG="Arg", GGU="Gly", GGC="Gly", GGA="Gly", GGG="Gly"
+  )
+  codones <- substring(seq, seq(1, nchar(seq)-2, 3), seq(3, nchar(seq), 3))
+  aa <- sapply(codones, function(c) ifelse(c %in% names(codon_tabla), codon_tabla[[c]], ""))
+  paste(aa[aa != "Stop"], collapse = "-")
+}
+cat("\n")
+cat("Secuencia traducida de RNA a Secuencia de proteínas: \n")
+traducirProteina(arn_transcrito)
+
+```
+
+```{r}
+# Punto 6
+hebraInversa <- function(seq) {
+  paste(rev(strsplit(seq, "")[[1]]), collapse = "")
+}
+cat("\n")
+cat("Hebra inversa de la secuencia original de DNA: \n")
+hebraInversa(adn_replicado)
+
+```
+
+```{r}
+# Punto 7
+hebraComplementaria <- function(seq){
+  bases <- c(A="T", T="A", C="G", G="C")
+  comp <- sapply(strsplit(seq, "")[[1]], function(b) bases[[b]])
+  paste(rev(comp), collapse = "")
+}
+cat("\n")
+cat("Hebra de DNA directa a hebra complementaria: \n")
+hebraComplementaria(adn_replicado)
+
+```
+
+```{r}
+# Punto 8
+complementariaInversa <- function(hebra_complementaria) {
+  paste(rev(strsplit(hebra_complementaria, "")[[1]]), collapse = "")
+}
+
+cat("\n")
+cat("Hebra complementaria a hebra complementaria inversa: \n")
+complementariaInversa(hebraComplementaria(adn_replicado))
+
+```
+

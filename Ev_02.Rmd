@@ -1,0 +1,302 @@
+---
+title: "Ev_02"
+author: "Marcelo Treviño Velazquez"
+date: "2025-05-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# PARTE 1 - Presentación presencial y Video
+
+## ¿Cuáles son los virus “similares” a SARS-CoV-2 en el mundo? Obtén tus referencias de PUBMED.
+
+1. RaTG13: Descubierto en 2013 en murciélagos de la especie Rhinolophus affinis en China, comparte un 96.1% de similitud genética con SARS-CoV-2. Su receptor de unión (RBD) presenta una afinidad menor por el ACE2 humano, indicando una menor capacidad de infección en humanos. [PubMed](https://pmc.ncbi.nlm.nih.gov/articles/PMC7095418/)
+
+2. RmYN02: Identificado en 2019 en murciélagos de Yunnan, China, muestra un 93.3% de similitud genética con SARS-CoV-2. Su RBD presenta secuencias que podrían afectar su interacción con ACE2 humano. [PubMed](https://pmc.ncbi.nlm.nih.gov/articles/PMC7211627/)
+
+3. RacCS203: Detectado en 2019 en murciélagos de Tailandia, comparte un 91.5% de similitud genética con SARS-CoV-2. Su proteína Spike es altamente divergente respecto a la de SARS-CoV-2. [PubMed](https://pmc.ncbi.nlm.nih.gov/articles/PMC7873279/)
+
+4. MERS-COV: Es un virus causante del síndrome respiratorio de oriente medio, la similitud que este tiene es que pertenece al género betacoronavirus, comparten aproximadamente 50% de similitud genética. Usa el receptor DPP4 en lugar de ACE2, lo que limita su transmisibilidad humana. [PubMed](https://pmc.ncbi.nlm.nih.gov/articles/PMC3657598/)
+
+Estos virus comparten similitudes en su estructura genética y en la proteína Spike, aunque presentan diferencias en su capacidad para unirse al receptor ACE2 humano, lo que influye en su potencial para infectar a los seres humanos.
+
+## ¿Cuáles son los coronavirus reportados en otras especies que pueden ser cercanos al genoma de SARS-CoV-2 (al menos 3 especies)? Incluye de qué especies son y menciona las referencias de los artículos consultados en PUBMED.
+
+1. **Murciélagos:**
+Los murciélagos de la especie Rhinolophus affinis han sido identificados como reservorios naturales de coronavirus estrechamente relacionados con SARS-CoV-2. Un ejemplo destacado es el virus RaTG13, que comparte un 96.1% de similitud genética con SARS-CoV-2. Sin embargo, la diferencia en la proteína Spike sugiere que RaTG13 no puede unirse eficientemente al receptor ACE2 humano, lo que limita su capacidad de infección en humanos. 
+
+2. **Pangolines:**
+Los pangolines han sido considerados como posibles huéspedes intermediarios en la transmisión de SARS-CoV-2 a humanos. Un estudio identificó un coronavirus en pangolines que comparte similitudes en la secuencia del dominio de unión al receptor (RBD) de la proteína Spike con SARS-CoV-2. Aunque este virus no puede infectar directamente a humanos, su similitud genética sugiere un potencial de transmisión zoonótica.
+
+3. **Gatos domésticos:**
+Se han reportado casos de gatos domésticos infectados con SARS-CoV-2, indicando que los felinos pueden ser susceptibles al virus. Aunque la transmisión de gatos a humanos es poco probable, estos casos subrayan la importancia de monitorear la propagación del virus en animales domésticos.
+
+## Reflexión individual ¿qué propuestas se hubieran realizado durante la contingencia del SARS-CoV-2 en comunidades de bajos recursos? Si tú vivieras en una situación de escasos recursos, ¿qué harías? Justifica tu respuesta.
+
+- **Andres:** 
+  Para las comunidades de bajos recursos algunas de las propuestas que pondría a realizar son las siguientes, apoyo educativo alternativo, este se enfoca para los estudiantes sin internet, consiste en distribuir cuadernillos impresos, guías de estudios o clases por radio local. Alimentos y productos de higiene a precio justo, gestionar con autoridades o asociaciones civiles el abasto de despensas a bajo costo o donaciones directas para quienes perdieron sus ingresos. Lo que hubiera hecho si yo viviera en esa situación, es reducir mis salidas para minimizar el riesgo de contagio. Acudir a centros comunitarios, iglesias o instituciones que ofrecieran ayuda alimentaria, sanitaria o educativa.
+
+- **Marcelo:** 
+  Durante la contingencia del SARS-CoV-2, muchas comunidades de bajos recursos enfrentaron muchos desafíos. La falta de acceso a servicios de salud adecuados, a tecnologías y a recursos económicos que  dejó en evidencia una profunda desigualdad. En ese contexto, considero que se pudieron haber implementado propuestas más centradas en la organización comunitaria. Por ejemplo, redes vecinales de apoyo para repartir alimentos, medicamentos e información confiable hubieran sido clave para reducir el impacto. Además, adaptar espacios públicos como escuelas o centros comunitarios para servir como lugares de aislamiento hubiera permitido cuidar mejor a quienes no podían hacerlo en sus hogares.
+
+  Si yo hubiera vivido en una situación de escasos recursos durante esa época, creo que lo más importante hubiera sido mantenerme unido a mi comunidad, a mi familia y a mis conocidos. En lugar de enfrentar la crisis de forma individual, buscaría integrarme en grupos vecinales para compartir lo poco que tuviéramos, desde alimentos hasta información útil. También me esforzaría por cuidar la salud de los demás promoviendo prácticas de higiene accesibles, como el lavado de manos con agua y jabón para mantener una buena higiene y aislarme de los potenciales infectados de covid 19.
+
+  Además, muchas de las y los estudiantes perdieron el acceso a la educación o acceso a una educación ineficiente en la televisión, por lo que buscaría alternativas para tener una buena educación. Tal vez organizaría grupos pequeños para compartir cuadernos impresos o escucharía clases por radio. Aunque las condiciones fueran difíciles, buscaría mantener la esperanza activa, entendiendo que el bienestar común puede surgir incluso en momentos de adversidad si se trabaja en colectivo.
+
+- **Desiderio:** 
+  Se pudieron implementar varias propuestas para apoyar a las comunidades de bajos recursos, distribución de recursos esenciales, proveer mascarillas, desinfectantes, alimentos a través de organizaciones comunitarias, gubernamentales,  acceso a atención médica, remate, establecer consultas médicas virtuales gratuitas o económicas entre las comunidades sin acceso fácil a diferentes hospitales, utilizar medios accesibles, como la radio o mensajes de texto, para informar sobre las medidas de prevención entre síntomas del COVID-19, los incentivos a comercios locales son pequeños negocios y comercios para que puedan operar bajo medidas de bioseguridad, ayudando a mitigar las crisis económicas si estuvieras en una situación de diferentes recursos, buscaría organizarme con mis vecinos en redes de diferentes apoyos para distribuir diferentes recursos y compartir información verificadas, colabora en la gran búsqueda de ayuda externa de diferentes organizaciones no gubernamentales y usarías tecnologías para acceder a consultas médicas y educación en línea y priorizar el bienestar común 
+
+- **Alana:** 
+  No se puede negar el claro privilegio que tenemos en la sociedad, y al principal privilegio que tuvimos fue el acceso a la salud, por eso yo considero que una de las primeras cosas que yo considero que implementaría es el acceso a una buena salud de manera gratuita, ya sean clínicas móviles que pasen con vacunas o medicamentos que puedan ayudar, asi mismo ir por zonas tratando de educar a las personas para que entiendan mejor la situación y decirles que medidas de prevención pueden optar para evitar contraer el virus. 
+
+# Video de Youtube de la Parte 1
+
+Puede ver el video en el siguiente link:[https://www.youtube.com/watch?v=znfieRiCILA](https://www.youtube.com/watch?v=znfieRiCILA)
+
+# PARTE 2 - Código de análisis filogenético.
+
+De esta parte, seleccionamos la opción número 3 que constaba de:
+- Estudia la cercanía de SARS-CoV-2 con otros coronavirus humanos que ocasionan enfermedades similares (como MERS). En tu investigación debes trabajar con 20 virus diferentes.
+
+
+Se han seleccionado diferentes variantes desde la página NCBI para coronavirus humano y variantes parecidas al SARS-COV2.
+
+## Calcula la longitud de las secuencias que incluyas.
+```{r}
+library(ape)
+
+cov_accessions <- c(
+  # SARS-CoV-2
+  SARSCoV2_Wuhan          = "NC_045512.2",
+  
+  # SARS-CoV-1
+  SARSCoV1_Tor2           = "NC_004718.3",
+  
+  # MERS-CoV
+  MERS_EMC2012            = "NC_019843.3",
+  
+  # HCoV-OC43
+  HCoV_OC43_VR759         = "NC_006213.1",
+  
+  # HCoV-HKU1
+  HCoV_HKU1_HK            = "NC_006577.2",
+  
+  # HCoV-229E
+  HCoV_229E_Ref           = "NC_002645.1",
+  
+  # HCoV-NL63
+  HCoV_NL63_Ref           = "NC_005831.2",
+  
+  # HCoV-OC43 genotype B
+  HCoV_OC43_GenB          = "AY391777.1",
+  
+  # HCoV-HKU1 genotype B
+  HCoV_HKU1_GenB          = "HM034837.1",
+  
+  # HCoV-229E clinical isolate
+  HCoV_229E_Clinical      = "MF542265.1",
+  
+  # HCoV-NL63 strain CBJ 037
+  HCoV_NL63_CBJ037        = "JX104161.1",
+  
+  # HCoV-OC43 strain KLF01_2018
+  HCoV_OC43_KLF01_2018    = "MN026164.1",
+  
+  # HCoV-HKU1 strain BJ01
+  HCoV_HKU1_BJ01          = "AY884001.1",
+  
+  # HCoV-229E strain J0304
+  HCoV_229E_J0304         = "JX503061.1",
+  
+  # HCoV-NL63 strain NL937
+  HCoV_NL63_NL937         = "AY567487.1",
+  
+  # HCoV-OC43 strain HK04
+  HCoV_OC43_HK04          = "AY391777.1",
+  
+  # HCoV-HKU1 strain Caen1
+  HCoV_HKU1_Caen1         = "HM034837.1",
+  
+  # HCoV-229E strain 0349
+  HCoV_229E_0349          = "JX503060.1",
+  
+  # HCoV-NL63 strain CN14
+  HCoV_NL63_CN14          = "MG772808.1",
+  
+  # HCoV-NL63 strain Amsterdam-1
+  HCoV_NL63_Amsterdam1    = "NC_005831.2"
+)
+
+
+
+# Descargar los genomas completos desde NCBI GenBank
+genome_seqs <- read.GenBank(cov_accessions,
+                            as.character = TRUE,
+                            species.names = FALSE)
+
+# Renombrar las secuencias para mejor lectura
+names(genome_seqs) <- names(cov_accessions)
+
+```
+
+## Longitud de secuencia de adn
+```{r}
+# ▸ Calcula la longitud (pb) de cada genoma
+genome_lengths <- vapply(
+  genome_seqs,
+  FUN = function(seq) {
+    # 1) Convierte a carácter y, por si acaso, junta elementos con collapse=""
+    nchar(paste0(as.character(seq), collapse = ""))
+  },
+  FUN.VALUE = integer(1L),
+  USE.NAMES = TRUE
+)
+
+# ▸ Ordena descendentemente
+length_table <- sort(genome_lengths, decreasing = TRUE)
+
+# length_table ya debería existir (resultado de sort(genome_lengths, decreasing = TRUE))
+
+knitr::kable(
+  data.frame(
+    Virus = names(length_table),
+    Bases = length_table
+  ),
+  caption   = "Longitud del genoma completo (20 coronavirus humanos)",
+  row.names = FALSE
+)
+
+
+```
+
+
+## Crea una sola gráfica donde se comparen el número de bases de ADN que componen a los virus. 
+```{r}
+# Longitudes del genoma (si ya tienes genome_lengths, omite este bloque)
+genome_lengths <- vapply(
+  genome_seqs,
+  FUN       = function(seq) nchar(paste0(as.character(seq), collapse = "")),
+  FUN.VALUE = integer(1L),
+  USE.NAMES = TRUE
+)
+
+# Ordenamos de mayor a menor para la visualización
+length_sorted <- sort(genome_lengths, decreasing = TRUE)
+
+df_len <- data.frame(
+  Virus = factor(names(length_sorted), levels = names(length_sorted)),
+  Bases = as.numeric(length_sorted)
+)
+
+# Paleta de colores (20 colores distintos)
+library(RColorBrewer)
+bar_cols <- brewer.pal(12, "Set3")
+bar_cols <- c(bar_cols, brewer.pal(8, "Dark2"))  # 12 + 8 = 20
+
+# Gráfica interactiva en Plotly
+library(plotly)
+
+plot_ly(
+  data        = df_len,
+  x           = ~Bases,
+  y           = ~Virus,
+  type        = 'bar',
+  orientation = 'h',
+  marker      = list(color = bar_cols)
+) %>%
+  layout(
+    title  = "Número de bases del genoma en 20 coronavirus humanos",
+    xaxis  = list(title = "Número de bases (pb)"),
+    yaxis  = list(title = ""),
+    bargap = 0.3
+  )
+
+```
+
+## Agrega un análisis jerárquico global (Dendograma) obtenido de las secuencias que se seleccionaron para estudiar.
+
+```{r}
+library(msa)
+library(ape)
+library(Biostrings)
+library(ggtree)
+
+# Convertir a DNAStringSet desde genome_seqs
+genomes_char <- lapply(genome_seqs, function(seq) paste0(as.character(seq), collapse = ""))
+genomes_dna  <- DNAStringSet(unlist(genomes_char))
+names(genomes_dna) <- names(genomes_char)
+
+# Alineamiento con Clustal Omega (más recomendado para secuencias largas de DNA)
+alignment <- msa(genomes_dna, method = "ClustalOmega", type = "dna")
+
+# Convertir a objeto DNAbin
+aligned_dnabin <- msaConvert(alignment, type = "ape::DNAbin")
+
+# Calcular matriz de distancias y árbol filogenético (Neighbor Joining)
+matriz_distancia <- dist.dna(aligned_dnabin, model = "raw")
+genome_tree <- ape::nj(matriz_distancia)
+genome_tree <- ape::ladderize(genome_tree)
+
+# Visualización clásica
+plot(genome_tree, cex = 0.6)
+title("Evolución molecular del genoma completo de coronavirus (Clustal Omega)")
+
+# Visualización con ggtree
+ggtree(genome_tree) +
+  geom_tiplab(size = 3) +
+  ggtitle("Árbol filogenético – Genoma completo (Clustal Omega + NJ)")
+
+```
+
+## Agrega una interpretación escrita de tus gráficas y tus conclusiones según el caso de estudio que seleccionaste. No olvides sustentar tus argumentos con las lecturas que realizaste.
+
+La gráfica representa un árbol filogenético construido a partir de los genomas completos de distintas cepas de coronavirus humanos, utilizando el algoritmo Clustal Omega. Este árbol permite visualizar las relaciones evolutivas entre los virus analizados, destacando los grupos que comparten mayor similitud genética.
+
+- Se pueden identificar varios clados principales:
+Grupo OC43: Cepas como HCoV OC43 GenB, HK04, VR759 y KLF01 2018 forman un clado estrechamente relacionado, lo que indica alta homología y origen común. Aunque comparten una fuerte similitud genética, podrían presentar diferencias funcionales por mutaciones acumuladas.
+
+- Grupo HKU1: Las cepas HCoV HKU1 BJ01, HK, Caen1 y GenB también muestran una relación estrecha, posiblemente representando genes ortólogos, es decir, variantes del mismo gen en diferentes organismos o cepas que han divergido tras un evento de especiación viral.
+
+- Grupo 229E y NL63: Las variantes de HCoV 229E (Ref, J0304, 0349, Clinical) y HCoV NL63 (CN14, CBJ037, NL937, Amsterdam1, Ref) forman clados separados, indicando evolución divergente dentro de cada subtipo. Dentro de estas variantes, podrían encontrarse genes parálogos si surgieron por duplicación y adquirieron nuevas funciones, como ocurre con los genes de hemoglobina en humanos.
+
+- SARS-CoV y MERS-CoV: SARS-CoV-1 Tor2, SARS-CoV-2 Wuhan y MERS-CoV EMC2012 se agrupan en una rama más distante, mostrando menor similitud con los otros coronavirus humanos comunes, reflejando su evolución separada y alta patogenicidad.
+
+## Aspectos evolutivos destacados:
+
+- Homología: Es evidente entre todas las cepas analizadas, ya que todas derivan de un ancestro viral común.
+
+- Ortología: Probable entre cepas estrechamente relacionadas, como las del grupo HKU1 o 229E.
+
+- Paralogía: Podría inferirse si se estudiaran genes individuales dentro de una misma cepa y se identificaran duplicaciones con funciones distintas.
+
+- Analogía: No se observa en este árbol, ya que todos los virus tienen un origen evolutivo compartido.
+
+- Conversión génica: No es detectable directamente en el árbol, pero podría hipotetizarse si se encontraran secuencias inusualmente similares entre genes que deberían haber divergido más.
+
+Este árbol filogenético ilustra principalmente relaciones de homología entre coronavirus humanos, agrupándolos según su proximidad genética y revelando patrones evolutivos de divergencia y especialización. Sirve como herramienta clave para entender la evolución de estos virus y anticipar sus posibles trayectorias funcionales.
+
+
+## Referencias
+
+Andersen, K. G., Rambaut, A., Lipkin, W. I., Holmes, E. C., & Garry, R. F. (2020). The proximal origin of SARS-CoV-2. *Nature Medicine, 26*(4), 450–452. [https://doi.org/10.1038/s41591-020-0820-9](https://doi.org/10.1038/s41591-020-0820-9)
+
+Zhang, Y. Z., & Holmes, E. C. (2020). A genomic perspective on the origin and evolution of SARS-CoV-2. *Cell, 182*(2), 353–361. [https://doi.org/10.1016/j.cell.2020.06.028](https://doi.org/10.1016/j.cell.2020.06.028)
+
+Lam, T. T. Y., Shum, M. H. H., Zhu, H. C., Tong, Y. G., Ni, X. B., Liao, Y. S., ... & Li, W. X. (2020). Identifying SARS-CoV-2 related coronaviruses in Malayan pangolins. *Nature, 583*(7815), 282–285. [https://doi.org/10.1038/s41586-020-2169-0](https://doi.org/10.1038/s41586-020-2169-0)
+
+Liu, P., Chen, W., & Chen, J. P. (2019). Viral metagenomics reveals significant commonality of the virus communities in domestic animals. *PLOS ONE, 14*(10), e0223829. [https://doi.org/10.1371/journal.pone.0223829](https://doi.org/10.1371/journal.pone.0223829)
+
+Liao, Y., & Cheng, D. (2020). Identification of conserved genomic regions of SARS-CoV-2 and its similarity with other viruses. *Scientific Reports, 10*(1), 16946. [https://doi.org/10.1038/s41598-020-74097-7](https://doi.org/10.1038/s41598-020-74097-7)
+
+Zhou, P., Yang, X.-L., Wang, X.-G., Hu, B., Zhang, L., Zhang, W., ... & Shi, Z.-L. (2020). A pneumonia outbreak associated with a new coronavirus of probable bat origin. *Nature, 579*(7798), 270–273. [https://doi.org/10.1038/s41586-020-2012-7](https://doi.org/10.1038/s41586-020-2012-7)
+
+Zhang, T., Wu, Q., & Zhang, Z. (2020). Pangolin homology associated with SARS-CoV-2. *Nature, 583*(7815), 282–285. [https://doi.org/10.1038/s41586-020-2169-0](https://doi.org/10.1038/s41586-020-2169-0)
+
+Halfmann, P. J., Hatta, M., Chiba, S., Maemura, T., & Kawaoka, Y. (2020). Transmission of SARS-CoV-2 in domestic cats. *Nature Communications, 11*(1), 1–6. [https://doi.org/10.1038/s41467-020-18465-6](https://doi.org/10.1038/s41467-020-18465-6)
+
+Xiao, K., Zhai, J., Feng, Y., Zhou, N., Zhang, X., Zou, J. J., ... & Shen, Y. (2020). Isolation of SARS-CoV-2-related coronavirus from Malayan pangolins. *Nature, 583*(7815), 286–289. [https://doi.org/10.1038/s41586-020-2313-x](https://doi.org/10.1038/s41586-020-2313-x)
+
+Temmam, S., Vongphayloth, K., Baquero, E., et al. (2022). Bat coronaviruses related to SARS-CoV-2 and infectious for human cells. *Nature, 604*(7905), 330–336. [https://doi.org/10.1038/s41586-022-04532-4](https://doi.org/10.1038/s41586-022-04532-4)

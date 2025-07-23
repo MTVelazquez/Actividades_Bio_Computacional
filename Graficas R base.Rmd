@@ -1,0 +1,277 @@
+---
+title: "Graficación R Base"
+author: 'Francisco Rodriguez Recio'
+date: "4/21/2025"
+output: html_document
+---
+# Graficación en R
+
+Durante esta sesión exploraremos distintos tipos de gráficos, entenderemos cuándo usar cada uno y cómo personalizarlos con los argumentos más comunes. Para el día de hoy emplearemos paquetes de `datasets` que vienen precargados en RStudio en formato de _data.frame._
+
+Para la graficación, R define funciones, colecciones de datos y paquetes enteros para graficar y visualizar datos de todo tipo, incluídos datos financieros, periodísticos, geográficos, médicos y genéticos / genómicos. 
+
+* Puedes crear desde los paquetes incluídos en R (`base`) o con paquetes creados para graficar, `ggplot2`, `ggpubr`o `ggbio`. 
+
+* También paquetes especializados en un tipo de datos que incluyen funciones para graficar, como `ape`  o `phytools` para árboles filogenéticos. 
+
+Para esta sesión trabajaremos con las funciones básicas de graficación de R y después revisaremos las que son especiales para datos biológicos.
+
+
+#### **Recursos para graficación**:
+
+
+Recuerda revisar por tu cuenta las sigueintes guias:
+
+1. [R Graph Gallery](http://www.r-graph-gallery.com/)
+2. [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/) 
+3. [Blog de phytools](http://blog.phytools.org/)
+4. [Documentación online de ggplot2](http://docs.ggplot2.org/current/)
+5. [Documentación online de ggbio](http://www.tengfei.name/ggbio/docs/)
+6. [Ejemplos básicos](https://sites.harding.edu/fmccown/r/)
+7. [BBC Visual and Data Journalism cookbook for R graphics](https://bbc.github.io/rcookbook/)
+
+
+## Gráficas básicas en R _(R base functions)_:
+
+Los gráficos base se usan con mayor frecuencia y son un sistema muy poderoso para crear gráficos de datos. Hay dos fases para crear una gráfica base:
+
+1. Código base de graficación.
+2. Anotar (agregar a) una linea existente al codigo base
+
+Algunas de las más comunes son:
+
+* **pie**: pie charts
+* **dotchart**: cleveland dot plots
+* **image, heatmap, contour, persp**: functions to generate image-like plots
+* **qqnorm, qqline, qqplot:** distribution comparison plots
+* **plot**: generic x-y plotting
+* **barplot**: bar plots
+* **boxplot**: box-and-whisker plot
+* **hist**: histograms
+
+Para poder graficar de una forma idónea, es necesario conocer los tipos de datos que maneja R
+
+1.- **Continuo:** Un vector numérico, entero, lógico o complejo.
+
+2.- **Discreto:** Un vector de factores o cadenas de texto.
+
+En la siguiente tabla se desglosa un pequeño ejemplo de los diferentes tipos de graficos según el tipo de dato analizado.
+
+|   x      |  y     | Gráfico  |
+| :-------:|:------:|----------|   
+|Continuo  | Continuo | Diagrama de dispersión (Scatterplot)|
+|Continuo  | Discreto | Diagrama de dispersión, y coercionada a numérica|
+|Continuo  | Ninguno | Diagrama de dispersión, por número de renglón|
+|Discreto  | Cotinuo | Diagrama de caja (Box plot)|
+|Discreto  | Discreto | Gráfico de mosaico (Diagrama de Kinneman)|
+|Discreto  | Ninguno | Gráfica de barras|
+|Ninguno   | Cualquiera| Error|
+
+
+### Funcion plot()
+
+Un gráfico de dispersión muestra la relación entre dos variables numéricas. Es útil para identificar patrones, correlaciones o agrupaciones.
+
+La función **plot ()** toma dos vectores numéricos: uno para las coordenadas del eje x y otro para las coordenadas del eje y. Sin embargo, plot () es lo que se llama _una función genérica en R_, lo que significa que su **comportamiento puede cambiar dependiendo de los tipos de datos que se pasan a la funció**. Por lo cual, segun el tipo de gráfico, se controlan distintos parámetros de graficación dentro de esta misma función.
+
+
+```{r}
+data("mtcars")
+str(mtcars) #Revisar data.set para conocer el tipo de datos
+summary(mtcars) #estadísticas y descripción báscia de los datos 
+plot(mtcars$wt, mtcars$mpg,
+     main = "Relacion peso vs rendimiento",
+     pch=16, xlab = "Weight (1000 lbs)", ylab = "Miles per gallon",
+     col = "#8EDDDD") #consumo de combustible vs peso 
+
+```
+
+Adicional a los ejes _x_ & _y_ graficados, es posible agregar más **funciones de trazado.**
+
+*_Las funciones de trazado base_* comparten un conjunto de parámetros globales que se deben de indicar dentro de la función plot, estas son solo algunas claves:
+
+* **pch**: el símbolo de trazado (el valor predeterminado es círculo abierto)
+* **lty**: el tipo de línea (el valor predeterminado es una línea continua), puede ser discontinuo, punteado, etc.
+* **lwd**: el ancho de línea, especificado como un múltiplo entero
+* **col**: el color de trazado, especificado como un **número, cadena o código hexadecimal**; la función colors () te da un vector de colores por nombre
+* **xlab**: cadena de caracteres para la etiqueta del eje x
+* **ylab**: cadena de caracteres para la etiqueta del eje y
+-----
+### Function hist()
+
+Un histograma nos ayuda a conocer la _distribución_ de una sola variable numérica continua. Divide los valores en rangos y cuenta cuántos datos caen en cada uno. Así mismo, nos permite conocer asimetrías, modas, valores atipicos _(outliers)_, etc.
+
+```{r}
+hist(mtcars$hp,
+     main = "Distribución de hp",
+     xlab = "Gross horsepower",
+     col = "lightgreen",
+     border = "white")
+
+```
+
+En este dataset contiene con mayor frecuencia autos que van de los 50-100 hp.
+
+### Funcion boxplot ()
+
+Los graficos de cajas permiten resumir la distribución de una variable numérica y permite comparar varios grupos. Dentro de estos gráficos podemos observar medianas, cuartiles y posibles valores outliers. Además permiten comparar la distribución de una variable numérica entre grupos categóricos.
+
+```{r}
+boxplot(mpg ~ cyl, data = mtcars,
+        main = "MPG por Número de Cilindros",
+        xlab = "Número de Cilindros",
+        ylab = "MPG",
+        col = c("tomato", "skyblue", "khaki"))
+
+```
+
+En el gráfico anterior podemos observar que el consumo de combustible aumenta a mayor número de cilindros. 
+
+De igual modo es posible anexar más de 1 grafico dentro de una sola ventana mediante la función `par()`. Esto permite comparar visualmente varios gráficos y es ideal para análsis exploratorios. 
+
+```{r}
+par(mfrow = c(2, 2))
+hist(mtcars$mpg, main = "MPG", col = "lightblue", xlab = "Miles per gallon")
+boxplot(mpg ~ cyl, data = mtcars,
+        main = "MPG por Número de Cilindros",
+        xlab = "Número de Cilindros",
+        ylab = "MPG",
+        col = c("tomato", "skyblue", "khaki"))
+plot(mtcars$wt, mtcars$mpg,
+     main = "Relacion peso vs rendimiento",
+     pch=16, xlab = "Weight (1000 lbs)", ylab = "Miles per gallon",
+     col = "#8EDDDD")
+plot(mtcars$disp, mtcars$hp, main = "Cilindrada vs Potencia",
+     xlab = "Potencia", ylab = "Potencia del motor", col = "purple", pch = 19)
+
+# Restaurar configuración
+par(mfrow = c(1, 1))
+
+```
+
+### Leyendas: `legend()`
+
+Las leyendas son usadas para identificar con mayor claridad los distintos elementos en un gráfico, tales como colores y formas. Esta función debe ser llamada después de crear un gráfico ya que permite agregar anotaciones a un gráfico ya existente.
+
+Para crear una leyenda son necesarios los siguientes argumetnos: 
+
+`legend`: Las etiquetas de los datos que queremos describir con la leyenda. Por ejemplo, si tenemos cuatro categorías a describir, proporcionamos un vector de cuatro cadenas de texto.
+`fill`: Los colores que acompañan a las etiquetas definidas con legend. Estos colores tienen que coincidir con los que hemos usado en el gráfico.
+`x & y`: Las coordenadas en pixeles, en las que estará ubicada la leyenda. Podemos dar como argumento a `x`: “bottomright”, “bottom”, “bottomleft”, “left”, “topleft”, “top”, “topright”, “right”, “center”.
+`title`: Para poner título a la leyenda.
+
+```{r}
+plot(mtcars$wt, mtcars$mpg,
+     pch = 19,
+     col = ifelse(mtcars$cyl == 6, "blue", "gray"),
+     main = "MPG según el Peso y los Cilindros",
+     xlab ="Weight (1000 lbs)", ylab= "Miles per gallon")
+
+# Leyenda
+legend("topright",
+       legend = c("6 cilindros", "Otros"),
+       col = c("blue", "gray"),
+       pch = 19)
+
+```
+
+
+No obstante, esto solo representa algunas de las opciones que podemos revisar dentro de la graficación en R. A continuación se desglosan los principales argumentos de trazado que podemos agregar a nuestros graficos de R. **Recuerda seguir investigando por tu cuenta.**
+
+##### Argumentos comunes para `plot()`
+
+| Argumento     | Descripción                                                                 |
+|:-------------:|:-------------------------------------------------------------------------:|
+| `x`, `y`      | Variables numéricas para los ejes X e Y                                     |
+| `main`        | Título principal del gráfico                                                |
+| `xlab`, `ylab`| Etiquetas de los ejes                                                       |
+| `pch`         | Tipo de punto (1 a 25)                                                      |
+| `col`         | Color de los puntos                                                         |
+| `cex`         | Tamaño del punto                                                            |
+| `xlim`, `ylim`| Rango de valores en los ejes X y Y                                          |
+| `type`        | Tipo de gráfico: `"p"` (puntos), `"l"` (líneas), `"b"` (ambos), etc.        |
+| `abline()`    | Añade líneas (como una regresión)                                           |
+| `text()`      | Añade etiquetas en puntos específicos                                       |
+| `legend()`    | Muestra una leyenda                                                         |
+
+##### Argumentos comunes para `hist()`
+
+| Argumento     | Descripción                                                                 |
+|---------------|------------------------------------------------------------------------------|
+| `x`           | Variable numérica a analizar                                                |
+| `main`        | Título del gráfico                                                          |
+| `xlab`        | Etiqueta del eje X                                                          |
+| `ylab`        | Etiqueta del eje Y (por defecto: Frecuencia)                               |
+| `col`         | Color de las barras                                                         |
+| `border`      | Color del borde de las barras                                               |
+| `breaks`      | Número o ubicación de cortes en los intervalos                             |
+| `xlim`        | Límite del eje X                                                            |
+| `ylim`        | Límite del eje Y                                                            |
+| `freq`        | Si es `TRUE`, muestra frecuencias; si es `FALSE`, muestra densidades       |
+
+
+##### Argumentos comunes para `boxplot()`
+
+
+| Argumento     | Descripción                                                                 |
+|:-------------:|:-------------------------------------------------------------------------:|
+| `formula`     | Fórmula del tipo `y ~ x` para comparar grupos                               |
+| `data`        | Conjunto de datos                                                           |
+| `main`        | Título del gráfico                                                          |
+| `xlab`, `ylab`| Etiquetas de los ejes                                                       |
+| `col`         | Colores para las cajas                                                      |
+| `border`      | Color del borde de la caja                                                  |
+| `notch`       | Si es `TRUE`, dibuja una muesca en la caja para comparar medianas          |
+| `outline`     | Si es `FALSE`, no muestra valores atípicos                                 |
+| `names`       | Etiquetas para los grupos                                                   |
+
+
+-----
+
+### Exportar plots
+
+Supongamos que queremos almacenar la imagen previamente creada, para ello recurriremos a una función dentro de R base.
+
+Los gráficos no pueden ser guardados en un objetos para después ser exportados. R permite guardar gráficos directamente en archivos con funciones como `png()`, `pdf()`, `jpeg()`, o algún otro tipo de archivo que pueda ser almacenado en nuestro disco duro.
+
+Al ejecutar estas funciones le indicamos a R que envie el gráfico a un dispositivo gráfico dentro de nuestra computadora (Panel plot en RStudio). Cada vez que creeemos un gráfico nuevo, este será reemplazado dentro del dispositivo gráfico.
+
+**Importante**: siempre debes cerrar el dispositivo gráfico con `dev.off()`.
+
+
+En la siguiente tabla se muestran los argumentos comunes para funciones de exportación:
+
+| Argumento       | Descripción                                                                 |
+|-----------------|------------------------------------------------------------------------------|
+| `filename`      | Nombre del archivo de salida (por ejemplo: `"grafico.png"`)                |
+| `width`, `height`| Ancho y alto del gráfico en pulgadas (o píxeles en algunos formatos)       |
+| `units`         | Unidades para `width` y `height`: `"in"`, `"px"`, `"cm"`, `"mm"`            |
+| `res`           | Resolución del gráfico (dpi, solo para formatos de imagen: `png`, `jpeg`)  |
+| `bg`            | Color de fondo del gráfico                                                  |
+| `pointsize`     | Tamaño de fuente para textos y etiquetas                                    |
+
+
+```{r}
+# 1. Abrir la extensión que deseamos almacenar y colocar dimensiones del plot
+png(filename = "wt_vs_mpg.png", width = 800, height = 600)
+# 2. Codigo para el gráfico
+plot(mtcars$wt, mtcars$mpg,
+     main = "Relacion peso vs rendimiento",
+     pch=16, xlab = "Weight (1000 lbs)", ylab = "Miles per gallon",
+     col = "#8EDDDD")
+# 3. Cerrar el dispositivo gráfico 
+dev.off()
+```
+
+**IMPORTANTE**
+Cuando usas funciones como pdf(), png(), jpeg(), etc., R abre un dispositivo gráfico, es decir, prepara un archivo para escribir ahí el gráfico.
+
+Si no cierras el dispositivo con dev.off(), ocurren estos problemas:
+
+|Problema | Consecuencia|
+|:-------:|:-----------:|
+|El archivo queda "incompleto" | No se guarda correctamente, puede quedar vacío o corrupto.|
+|No puedes abrir nuevos gráficos | R sigue "dibujando" en el archivo, no en la consola.|
+|Bloqueo de recursos | Puede consumir memoria innecesariamente.|
+|Errores confusos | R puede lanzar mensajes como Error in plot.new(): figure margins too large o simplemente no dibujar nada.|
+

@@ -1,0 +1,64 @@
+---
+title: "Gráfica ggplot"
+author: "Marcelo Treviño Velazquez"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rentrez)
+
+# CAntidad de letras, o longitud de la secuencia
+
+# Si no hay un cambio en esto, quiere decir que las proteinas siguen exactamente igual
+
+# Hay ciertas proteinas que son conservadas por el virus, solamente algunas las muta
+
+# El porcentaje de G y C es importante ya que podemos identificar diferentes mutaciones a partir de los codones.
+
+# ---- Explicar que cada uno de los virus tiene diferente tipo de GC ya que hubo mutaciones y por ello la variabilidad ----
+```
+
+```{r Carga de datos inicial}
+library(ggplot2)
+data("iris")
+
+p <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(aes(color = Species, shape = Species), size =2)
+p
+
+#####################
+
+p <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(aes(color = Species, shape = Species, size = Sepal.Length))+
+  theme_bw()
+p
+
+
+###############
+p <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(aes(color = Species, shape = Species, size = Sepal.Length))+
+  theme_bw() +
+  facet_grid(Species~.)
+p
+
+
+##################
+
+p <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(aes(color = Species, shape = Species, size = Sepal.Length))+
+  theme_bw() +
+  facet_grid(Species~.)+
+  geom_text(aes(label = Species), size = 2)
+p
+
+##############
+p <- ggplot(data = iris) +
+  geom_bar(mapping = aes(x = Species, fill = Species))
+p
+```
+
